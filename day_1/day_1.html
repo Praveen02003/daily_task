@@ -5,82 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile</title>
-    <style>
-        body {
-            font-family: cursive;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .avatar {
-            margin-left: 33rem;
-            height: 26rem;
-            width: 28rem;
-        }
-
-        li p {
-            letter-spacing: 2px;
-            line-height: 3rem;
-        }
-
-        table {
-            margin-left: 8rem;
-        }
-
-        table,
-        tr,
-        th,
-        td {
-            border: 2px solid black;
-            border-collapse: collapse;
-        }
-
-        tr,
-        td {
-            padding: 3rem;
-        }
-
-        td,
-        th {
-            text-align: center;
-        }
-
-        input,
-        textarea {
-            padding: 1rem;
-            font-size: 1rem;
-            font-family: cursive;
-            border-radius: 20rem;
-            margin-top: 2rem;
-        }
-    </style>
+    <link rel="stylesheet" href="./day_1.css">
 </head>
 
 <body>
-    <div>
-        <div style="background: linear-gradient(45deg, #bfbfbf, #aaffc2);">
-            <h1 style="height: 5rem;padding-top: 2rem;">My Profile</h1>
-        </div>
-        <img src="./assets/avatar.png" alt="profile image" class="avatar">
+    <header>
+        <nav id="profile"> 
+            <h1>My Profile</h1>
+            <ul>
+                <li>
+                    <a href="https://github.com/dashboard" target="_blank">Github</a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/praveen-j19/" target="_blank">Linkedin</a>
+                </li>
+            </ul>
+        </nav>
         <div>
-            <h1 style="height: 5rem;">Praveen Jayaprakash </h1>
-        </div>  
-    </div>
-    <div style="background: linear-gradient(45deg, #bfbfbf, #aaffe7);height: 15rem;">
-        <h1 style="padding-top: 33px;">About Me</h1>
+            <h1 id="name">Praveen Jayaprakash </h1>
+        </div>
+        <img src="../assets/avatar.png" alt="profile image" class="avatar">
+    </header>
+    <section id="about">
+        <h1>About Me</h1>
         <ul>
             <li>
-                <p style="font-size: 20px;">
+                <p>
                     Hi, I am Praveen and I have a passion in creating a user friendly websites, I recently completed my
                     bachelor's degree in Sethu Institute of Technology in the branch of Electronics and Communication
                     Engineering.
                 </p>
             </li>
         </ul>
-    </div>
-    <div style="background: linear-gradient(45deg, #fcf6f6, #edffaa6b);height: 43rem;padding-top: 1rem;">
+    </section>
+    <section id="education">
         <h1>Education Details</h1>
         <table>
             <tr>
@@ -90,7 +48,7 @@
                 <th>Percentage / CGPA</th>
             </tr>
             <tr>
-                <td>1</td>
+                <td>1.</td>
                 <td>Pathirakalaiamman Matriculation Higher Secondary School</td>
                 <td>
                     10
@@ -103,7 +61,7 @@
                 </td>
             </tr>
             <tr>
-                <td>2</td>
+                <td>2.</td>
                 <td>Pathirakalaiamman Matriculation Higher Secondary School</td>
                 <td>
                     12
@@ -116,7 +74,7 @@
                 </td>
             </tr>
             <tr>
-                <td>3</td>
+                <td>3.</td>
                 <td>Sethu Institute Of Technology</td>
                 <td>
                     Electronics and Communication Engineering
@@ -128,12 +86,55 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <div style="background: linear-gradient(45deg, #bfbfbf, #aafffa);height: 26rem;padding-top: 1rem;">
+    </section>
+
+    <section id="skills">
+        <h1>Skills</h1>
+        <table>
+            <tr>
+                <th>S.No</th>
+                <th>Skill</th>
+                <th>Skill Name</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>Frontend</td>
+                <td>
+                    <ul>
+                        <li>Html</li>
+                        <li>Css</li>
+                        <li>Javascript</li>
+                        <li>React</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>2.  </td>
+                <td>Backend</td>
+                <td>
+                    <ul>
+                        <li>Node</li>
+                        <li>Express JS</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td> Database</td>
+                <td>
+                    <ul>
+                        <li>Mysql</li>
+                        <li>Mongo DB</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </section>
+    <section id="contact">
         <h1>My Contact Details</h1>
-        <div style="text-align: center;">
+        <div>
             <form>
-                <input type="text" id="name" value="Praveen" readonly>
+                <input type="text" id="username" value="Praveen" readonly>
                 <br>
                 <input type="email" id="email" value="praveen@123" readonly>
                 <br>
@@ -141,12 +142,12 @@
 
             </form>
         </div>
-    </div>
-    <div style="background: linear-gradient(45deg, #a7cdff, #e5e5e5);height: 41rem;padding-top: 1rem;">
+    </section>
+    <section id="help">
         <h1>How Can I Help You</h1>
-        <div style="text-align: center;">
+        <div>
             <form method="get">
-                <input type="text" id="name" name="name" placeholder="Enter Name......" required>
+                <input type="text" id="username" name="name" placeholder="Enter Name......" required>
                 <br>
                 <input type="email" id="email" name="email" placeholder="Enter email......" required>
                 <br>
@@ -158,7 +159,10 @@
                 <input type="submit" value="submit">
             </form>
         </div>
-    </div>
+    </section>
+    <footer>
+        <p>Developed by Praveen </p>
+    </footer>
 </body>
 
 </html>

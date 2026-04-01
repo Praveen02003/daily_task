@@ -1,0 +1,125 @@
+body {
+    font-family: cursive;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+.avatar {
+    margin-left: 33rem;
+    height: 26rem;
+    width: 28rem;
+}
+
+li p {
+    letter-spacing: 2px;
+    line-height: 3rem;
+}
+
+table {
+    margin-left: 8rem;
+}
+
+table,
+tr,
+th,
+td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+tr,
+td {
+    padding: 3rem;
+}
+
+td,
+th {
+    text-align: center;
+}
+
+input,
+textarea {
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: cursive;
+    border-radius: 20rem;
+    margin-top: 2rem;
+}
+
+#help {
+    background: linear-gradient(45deg, #a7cdff, #e5e5e5);
+    height: 44rem;
+    padding-top: 1rem;
+}
+
+#contact {
+    background: linear-gradient(45deg, #bfbfbf, #aafffa);
+    height: 26rem;
+    padding-top: 1rem;
+}
+
+#skills {
+    background: linear-gradient(45deg, #ecff8d, #0062e76b);
+    height: 43rem;
+    padding-top: 1rem;
+}
+
+#education {
+    background: linear-gradient(45deg, #fcf6f6, #edffaa6b);
+    height: 43rem;
+    padding-top: 1rem;
+}
+
+#about {
+    background: linear-gradient(45deg, #bfbfbf, #aaffe7);
+    height: 15rem;
+}
+
+#profile {
+    background: linear-gradient(45deg, #bfbfbf, #aaffc2);
+    height: 12rem;
+}
+
+#profile h1 {
+    height: 5rem;
+    padding-top: 2rem;
+}
+
+#profile ul {
+    display: flex;
+    justify-content: center;
+}
+
+#profile ul li {
+    padding-right: 25px;
+}
+
+#name {
+    height: 5rem;
+}
+
+#about h1 {
+    padding-top: 33px;
+}
+
+#about ul li p {
+    font-size: 20px;
+}
+
+#skills table {
+    margin-left: 30rem;
+}
+
+#contact div {
+    text-align: center;
+}
+
+#help div {
+    text-align: center;
+}
