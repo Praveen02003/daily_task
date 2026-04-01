@@ -54,7 +54,7 @@ textarea {
 
 #help {
     background: linear-gradient(45deg, #a7cdff, #e5e5e5);
-    height: 44rem;
+    height: 48rem;
     padding-top: 1rem;
 }
 
@@ -122,4 +122,14 @@ textarea {
 
 #help div {
     text-align: center;
+}
+
+#gender {
+    height: 4rem;
+    width: 16rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: cursive;
+    border-radius: 20rem;
+    margin-top: 2rem;
 }

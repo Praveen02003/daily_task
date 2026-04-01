@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <nav id="profile"> 
+        <nav id="profile">
             <h1>My Profile</h1>
             <ul>
                 <li>
@@ -109,7 +109,7 @@
                 </td>
             </tr>
             <tr>
-                <td>2.  </td>
+                <td>2. </td>
                 <td>Backend</td>
                 <td>
                     <ul>
@@ -151,10 +151,19 @@
                 <br>
                 <input type="email" id="email" name="email" placeholder="Enter email......" required>
                 <br>
+                <select name="gender" id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                <br>
                 <input type="tel" id="mobile" name="mobile" placeholder="123-4567-890"
                     pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}">
                 <p>Format : 123-4567-890 </p>
                 <textarea name="message" placeholder="Enter Few Lines......."></textarea>
+                <br>
+                <input type="checkbox" name="terms" id="terms" required>
+                <label for="terms">Agree Terms and Condition</label>
                 <br>
                 <input type="submit" value="submit">
             </form>
