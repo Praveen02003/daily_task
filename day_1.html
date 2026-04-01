@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: cursive;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .avatar {
+            margin-left: 33rem;
+            height: 26rem;
+            width: 28rem;
+        }
+
+        li p {
+            letter-spacing: 2px;
+            line-height: 3rem;
+        }
+
+        table {
+            margin-left: 8rem;
+        }
+
+        table,
+        tr,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+        tr,
+        td {
+            padding: 3rem;
+        }
+
+        td,
+        th {
+            text-align: center;
+        }
+
+        input,
+        textarea {
+            padding: 1rem;
+            font-size: 1rem;
+            font-family: cursive;
+            border-radius: 20rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div style="background: linear-gradient(45deg, #bfbfbf, #aaffc2);">
+            <h1 style="height: 5rem;padding-top: 2rem;">My Profile</h1>
+        </div>
+        <img src="./assets/avatar.png" alt="profile image" class="avatar">
+        <div>
+            <h1 style="height: 5rem;">Praveen Jayaprakash </h1>
+        </div>  
+    </div>
+    <div style="background: linear-gradient(45deg, #bfbfbf, #aaffe7);height: 15rem;">
+        <h1 style="padding-top: 33px;">About Me</h1>
+        <ul>
+            <li>
+                <p style="font-size: 20px;">
+                    Hi, I am Praveen and I have a passion in creating a user friendly websites, I recently completed my
+                    bachelor's degree in Sethu Institute of Technology in the branch of Electronics and Communication
+                    Engineering.
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div style="background: linear-gradient(45deg, #fcf6f6, #edffaa6b);height: 43rem;padding-top: 1rem;">
+        <h1>Education Details</h1>
+        <table>
+            <tr>
+                <th>S.No</th>
+                <th>School / College Name</th>
+                <th>Course Name</th>
+                <th>Percentage / CGPA</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Pathirakalaiamman Matriculation Higher Secondary School</td>
+                <td>
+                    10
+                    <sup>th</sup>
+                    <br>
+                    <p>( SSLC )</p>
+                </td>
+                <td>
+                    84%
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Pathirakalaiamman Matriculation Higher Secondary School</td>
+                <td>
+                    12
+                    <sup>th</sup>
+                    <br>
+                    <p>(HSC)</p>
+                </td>
+                <td>
+                    87%
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Sethu Institute Of Technology</td>
+                <td>
+                    Electronics and Communication Engineering
+                    <br>
+                    <p>(ECE)</p>
+                </td>
+                <td>
+                    8.1 ( CGPA )
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="background: linear-gradient(45deg, #bfbfbf, #aafffa);height: 26rem;padding-top: 1rem;">
+        <h1>My Contact Details</h1>
+        <div style="text-align: center;">
+            <form>
+                <input type="text" id="name" value="Praveen" readonly>
+                <br>
+                <input type="email" id="email" value="praveen@123" readonly>
+                <br>
+                <input type="text" id="mobile" value="1234567890" readonly>
+
+            </form>
+        </div>
+    </div>
+    <div style="background: linear-gradient(45deg, #a7cdff, #e5e5e5);height: 41rem;padding-top: 1rem;">
+        <h1>How Can I Help You</h1>
+        <div style="text-align: center;">
+            <form method="get">
+                <input type="text" id="name" name="name" placeholder="Enter Name......" required>
+                <br>
+                <input type="email" id="email" name="email" placeholder="Enter email......" required>
+                <br>
+                <input type="tel" id="mobile" name="mobile" placeholder="123-4567-890"
+                    pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}">
+                <p>Format : 123-4567-890 </p>
+                <textarea name="message" placeholder="Enter Few Lines......."></textarea>
+                <br>
+                <input type="submit" value="submit">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
