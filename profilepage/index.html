@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
 </head>
 
-<body>
-    
+<body id="body">
+
     <!-- header -->
     <header>
         <!-- navbar -->
         <nav class="navbar">
-            <h2><a href="#hero">My Profile</a></h2>
+            <h2>
+                <a href="#hero">My Profile</a>
+            </h2>
 
             <!-- toggle button -->
             <input type="checkbox" id="menu-toggle">
@@ -28,6 +30,9 @@
             </label>
 
             <ul>
+                <li>
+                    <button onclick="changemode()" id="darkmodebutton">Dark Mode</button>
+                </li>
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#education">Education</a></li>
@@ -38,9 +43,16 @@
 
         <!-- hero -->
         <div class="hero" id="hero">
-            <img src="./assets/avatar.png" alt="Profile image" class="avatar">
+            <img src="./assets/avatar.png" alt="Profile image" class="avatar" id="avatarimage">
+            <button onclick="changeprofile()">Change Profile</button>
             <h1>Praveen Jayaprakash</h1>
             <p>Full Stack Developer | React JS | Node.JS</p>
+            <p>
+                Date : <span id="date"></span>
+            </p>
+            <p>
+                Time : <span id="time"></span>
+            </p>
         </div>
     </header>
 
@@ -97,6 +109,9 @@
     </section>
 
     <!-- skills -->
+    <section class="card">
+        <button onclick="toggleskills();" id="skillbutton">Show Skills</button>
+    </section>
     <section class="card" id="skills">
         <h2>Skills</h2>
         <div class="skills">
@@ -126,29 +141,38 @@
     <!-- help form -->
     <section class="card">
         <h2>Contact Me</h2>
-        <form>
-            <input type="text" placeholder="Enter your name" required>
-            <input type="email" placeholder="Enter your email" required>
+        <form id="contactform">
 
-            <select required>
+            <input type="text" placeholder="Enter your name" id="name">
+            <small class="error" id="nameerror"></small>
+
+            <input type="email" placeholder="Enter your email" id="email">
+            <small class="error" id="emailerror"></small>
+
+            <select id="gender">
                 <option value="">Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
             </select>
+            <small class="error" id="gendererror"></small>
 
-            <input type="tel" placeholder="123-4567-890" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}">
+            <div class="parentmobile">
+                <span class="code">+91</span>
+                <input type="tel" placeholder="Enter Mobile Number" id="mobile" maxlength="10">
+            </div>
+            <small class="error" id="mobileerror"></small>
+
+
+            <textarea placeholder="Enter your message" id="message"></textarea>
+            <small class="error" id="messageerror"></small>
 
             <label>
-                Mobile Number Format : 123-4567-890
+                <input type="checkbox" id="terms"> Agree to terms & conditions
             </label>
-
-            <textarea placeholder="Enter your message"></textarea>
-
-            <label>
-                <input type="checkbox" required> Agree to terms & conditions
-            </label>
+            <small class="error" id="termserror"></small>
 
             <button type="submit">Submit</button>
+
         </form>
     </section>
 
@@ -160,6 +184,7 @@
         </ul>
         <p>Developed by Praveen</p>
     </footer>
+    <script src="./script.js"></script>
 
 </body>
 

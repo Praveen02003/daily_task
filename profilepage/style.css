@@ -8,6 +8,7 @@ body {
     font-family: "Trirong", serif;
     background: #f4f6f8;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 /* navbar */
@@ -37,8 +38,17 @@ body {
 
 .navbar ul {
     display: flex;
+    align-items: center;
     list-style: none;
-    gap: 25px;
+    gap: 20px;
+}
+
+.navbar ul li button {
+    background: linear-gradient(45deg, #4b6fc2, #19999e);
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    white-space: nowrap;
 }
 
 .navbar a {
@@ -89,7 +99,7 @@ body {
 .avatar {
     width: 150px;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 50%;
     opacity: 0;
     transform: translateY(30px);
@@ -123,6 +133,10 @@ td {
 }
 
 /* skills */
+#skills {
+    display: none;
+}
+
 .skills {
     display: flex;
     justify-content: space-between;
@@ -137,7 +151,7 @@ td {
     text-align: center;
 }
 
-/* form */
+/* contact form */
 form {
     display: flex;
     flex-direction: column;
@@ -151,6 +165,13 @@ button {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
 }
 
 /* button */
@@ -185,6 +206,12 @@ footer a:hover {
     color: #00c6ff;
 }
 
+#error {
+    text-align: center;
+    color: red;
+    font-size: 15px;
+}
+
 /* avatar keyframe */
 @keyframes fadeSlide {
     to {
@@ -196,12 +223,12 @@ footer a:hover {
 /* media queries */
 
 @media (max-width: 768px) {
-    .hero {
-        padding-top: 5rem;
+    .navbar {
+        padding: 10px 15px;
     }
 
-    .navbar {
-        padding: 15px 20px;
+    .navbar h2 a {
+        font-size: 18px;
     }
 
     .menu-icon {
@@ -211,61 +238,65 @@ footer a:hover {
     .navbar ul {
         display: none;
         position: absolute;
-        top: 70px;
+        top: 60px;
         left: 0;
         width: 100%;
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
         padding: 15px 0;
     }
 
     #menu-toggle:checked~ul {
         display: flex;
+    }
+
+    .hero {
+        padding: 80px 20px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
     }
 
     .skills {
         flex-direction: column;
     }
 
-    .avatar {
-        width: 90px;
+    .card {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
-    .hero {
-        padding-top: 5rem;
-    }
 
     .navbar {
-        padding: 15px 20px;
+        padding: 10px;
     }
 
-    .menu-icon {
-        display: flex;
+    .navbar h2 a {
+        font-size: 16px;
     }
 
-    .navbar ul {
-        display: none;
-        position: absolute;
-        top: 64px;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 15px 0;
-    }
-
-    #menu-toggle:checked~ul {
-        display: flex;
+    .hero {
+        padding: 70px 15px;
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     h2 {
@@ -275,4 +306,66 @@ footer a:hover {
     p {
         font-size: 14px;
     }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card {
+        margin: 10px;
+        padding: 12px;
+    }
+
+    .skills div {
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    footer ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+.parentmobile {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 90rem;
+    background: #fff;
+}
+
+.code {
+    padding: 10px 12px;
+    background: #f1f1f1;
+    border-right: 1px solid #ccc;
+    font-weight: 500;
+    color: #333;
+}
+
+.parentmobile input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    flex: 1;
+    font-size: 14px;
+}
+
+.parentmobile:focus-within {
+    border-color: #007bff;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
 }
