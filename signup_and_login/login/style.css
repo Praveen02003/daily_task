@@ -11,6 +11,8 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #667eea, #764ba2);
+    opacity: 0;
+    animation: fadeInPage 0.4s ease-in forwards;
 }
 
 /* loginform */
@@ -37,6 +39,11 @@ form {
 form div {
     display: flex;
     flex-direction: column;
+}
+
+form div p {
+    margin-top: 8px;
+    margin-left: 5px;
 }
 
 input {
@@ -83,6 +90,12 @@ button:hover {
     color: #667eea;
     text-decoration: none;
     font-weight: 500;
+}
+
+@keyframes fadeInPage {
+    to {
+        opacity: 1;
+    }
 }
 
 /* mobile */

@@ -13,7 +13,7 @@
     <div class="main">
         <h2>Sign Up</h2>
 
-        <form id="signupform">
+        <form id="signupform" novalidate>
             <div>
                 <input type="text" placeholder="First Name" id="firstname">
                 <p id="firstnameerror"></p>
@@ -27,12 +27,11 @@
                 <p id="emailerror"></p>
             </div>
             <div>
-                <label for="mobile">+91</label>
+                <label for="mobile">+1</label>
                 <input type="tel" placeholder="Mobile" id="mobile">
                 <p id="mobileerror"></p>
             </div>
             <div>
-                <label for="shift">Shift : </label>
                 <select id="shift">
                     <option value="">Select Shift</option>
                     <option value="AM">AM</option>
@@ -41,7 +40,6 @@
                 <p id="shifterror"></p>
             </div>
             <div>
-                <label for="gender">Gender : </label>
                 <select id="gender">
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
