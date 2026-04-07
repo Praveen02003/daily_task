@@ -2,10 +2,11 @@ var userdata = JSON.parse(localStorage.getItem('userdata')) || {};
 const form = document.getElementById('signupform');
 
 form.addEventListener('submit', (event) => {
-    var userdata = JSON.parse(localStorage.getItem('userdata')) || {};
     event.preventDefault();
 
+    let userdata = JSON.parse(localStorage.getItem('userdata')) || {};
     let isvalid = true;
+
 
     const firstname = document.getElementById('firstname').value;
     const lastname = document.getElementById('lastname').value;
@@ -18,7 +19,6 @@ form.addEventListener('submit', (event) => {
     const confirmpassword = document.getElementById('confirmpassword').value;
     const terms = document.getElementById('terms').checked;
 
-
     if (!firstname) {
         document.getElementById('firstnameerror').textContent = "Enter Firstname";
         isvalid = false;
@@ -29,103 +29,54 @@ form.addEventListener('submit', (event) => {
         isvalid = false;
     }
 
+    let emailError = "";
+
     if (!email) {
-        document.getElementById('emailerror').textContent = 'Enter Email';
-        return;
+        emailError = "Enter Email";
+    } else if (email.includes(" ")) {
+        emailError = "Email should not contain space";
+    } else if (!email.includes('@')) {
+        emailError = "Email must contain @";
+    } else if (email.indexOf('@') !== email.lastIndexOf('@')) {
+        emailError = "Only one '@' allowed";
+    } else {
+        let [local, domain] = email.split("@");
+
+        if (!local) {
+            emailError = "Email should not start with '@'";
+        } else if (!domain) {
+            emailError = "Enter domain after '@'";
+        } else if (!domain.includes(".")) {
+            emailError = "Domain must contain '.'";
+        } else if (local.startsWith(".")) {
+            emailError = "Email should not start with '.'";
+        } else if (domain.startsWith(".") || domain.endsWith(".")) {
+            emailError = "Invalid domain format";
+        } else {
+            let parts = domain.split(".");
+            let extension = parts[parts.length - 1];
+
+            if (extension.length < 2) {
+                emailError = "Invalid extension";
+            } else if (/\d/.test(extension)) {
+                emailError = "Extension should not contain numbers";
+            } else if (!/^[a-zA-Z]+$/.test(extension)) {
+                emailError = "Extension must be letters only";
+            }
+        }
     }
 
-    if (email.includes(" ")) {
-        document.getElementById('emailerror').textContent = "Email should not contain space";
-        return;
+    if (emailError) {
+        document.getElementById('emailerror').textContent = emailError;
+        isvalid = false;
     }
-
-    if (!email.includes('@')) {
-        document.getElementById('emailerror').textContent = 'Email must contain @';
-        return;
-    }
-
-    if (email.indexOf('@') !== email.lastIndexOf('@')) {
-        document.getElementById('emailerror').textContent = "Email must contain only one '@'";
-        return;
-    }
-
-    let split_email = email.split("@");
-
-    if (split_email[0].length === 0) {
-        document.getElementById('emailerror').textContent = "Email should not start with '@'";
-        return;
-    }
-
-    if (split_email[1].length === 0) {
-        document.getElementById('emailerror').textContent = "Enter domain name after '@'";
-        return;
-    }
-
-    if (!split_email[1].includes(".")) {
-        document.getElementById('emailerror').textContent = "Domain must contain '.'";
-        return;
-    }
-
-    if (split_email[0].startsWith(".")) {
-        document.getElementById('emailerror').textContent = "Email should not start with '.'";
-        return;
-    }
-
-    if (split_email[1].startsWith(".")) {
-        document.getElementById('emailerror').textContent = "Domain name should not start with '.'";
-        return;
-    }
-
-    if (split_email[1].endsWith(".")) {
-        document.getElementById('emailerror').textContent = "Domain name should not end with '.'";
-        return;
-    }
-
-    let domainparts = split_email[1].split(".");
-
-    if (domainparts.length < 2) {
-        document.getElementById('emailerror').textContent = "Domain name must contain dot";
-        return;
-    }
-
-    let extension = domainparts[domainparts.length - 1];
-    var domains = ['com', 'in'];
-
-    if (extension.length === 0) {
-        document.getElementById('emailerror').textContent = "Extension cannot be empty";
-        return;
-    }
-
-    if (extension.length < 2) {
-        document.getElementById('emailerror').textContent = "Extension must be at least 2 characters";
-        return;
-    }
-
-    if (/\d/.test(extension)) {
-        document.getElementById('emailerror').textContent = "Extension should not contain numbers";
-        return;
-    }
-
-    if (!/^[a-zA-Z]+$/.test(extension)) {
-        document.getElementById('emailerror').textContent = "Extension must contain only letters";
-        return;
-    }
-    if (!domains.includes(extension.toLowerCase())) {
-        document.getElementById('emailerror').textContent = "Invalid domain extension";
-        return;
-    }
-
-    document.getElementById('emailerror').textContent = "";
 
     if (!mobile) {
         document.getElementById('mobileerror').textContent = "Enter Mobile";
         isvalid = false;
-    }
-    if (mobile) {
-        if (mobile.length < 10) {
-            document.getElementById('mobileerror').textContent = "Mobile Number must be 10 digit";
-            isvalid = false;
-        }
+    } else if (mobile.length < 10) {
+        document.getElementById('mobileerror').textContent = "Enter valid 10-digit number";
+        isvalid = false;
     }
 
     if (!shift) {
@@ -149,19 +100,12 @@ form.addEventListener('submit', (event) => {
     }
 
     if (!confirmpassword) {
-        document.getElementById('confirmpassworderror').textContent = "Enter Confirmpassword";
+        document.getElementById('confirmpassworderror').textContent = "Enter Confirm Password";
+        isvalid = false;
+    } else if (password && password !== confirmpassword) {
+        document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
         isvalid = false;
     }
-
-    if (password) {
-        if (confirmpassword) {
-            if (password !== confirmpassword) {
-                document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
-                isvalid = false;
-            }
-        }
-    }
-
 
     if (!terms) {
         document.getElementById('termserror').textContent = "Accept Terms";
@@ -169,25 +113,29 @@ form.addEventListener('submit', (event) => {
     }
 
     if (isvalid) {
-
         if (userdata[email]) {
-            alert('Email Already Exist');
-        }
-        else {
+            alert('Email Already Exists');
+        } else {
+            var finalnumber = mobile.replace(/\D/g, "");
             userdata[email] = {
-                'firstname': firstname,
-                'lastname': lastname,
-                'email': email,
-                'mobile': '+1' + mobile,
-                'shift': shift,
-                'gender': gender,
-                'password': confirmpassword,
-                'terms': terms
-            }
+                firstname,
+                lastname,
+                email,
+                mobile: '+1' + finalnumber,
+                shift,
+                gender,
+                role,
+                password,
+                terms
+            };
+
             localStorage.setItem('userdata', JSON.stringify(userdata));
             alert("Signup Success");
-        }
 
+            setTimeout(() => {
+                window.location.href = "/signup_and_login/login/index.html";
+            }, 1000);
+        }
     }
 });
 
