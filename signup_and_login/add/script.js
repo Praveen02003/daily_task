@@ -1,5 +1,5 @@
 var userdata = JSON.parse(localStorage.getItem('userdata')) || {};
-const form = document.getElementById('signupform');
+const form = document.getElementById('addform');
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -163,45 +163,12 @@ form.addEventListener('submit', (event) => {
                 password,
                 terms
             };
-            // userdata['heman@gmail.com'] = {
-            //     'firstname': "heman",
-            //     'lastname': 'j',
-            //     'email': email,
-            //     'mobile': '+1' + '1234567890',
-            //     'shift': 'Am',
-            //     'gender': 'male',
-            //     'role': 'student',
-            //     'password': '123456789@',
-            //     'terms': true
-            // };
-            // userdata['he@gmail.com'] = {
-            //     'firstname': "heman",
-            //     'lastname': 'j',
-            //     'email': email,
-            //     'mobile': '+1' + '1234567890',
-            //     'shift': 'Am',
-            //     'gender': 'male',
-            //     'role': 'student',
-            //     'password': '123456789@',
-            //     'terms': true
-            // };
-            // userdata['hem@gmail.com'] = {
-            //     'firstname': "heman",
-            //     'lastname': 'j',
-            //     'email': email,
-            //     'mobile': '+1' + '1234567890',
-            //     'shift': 'Am',
-            //     'gender': 'male',
-            //     'role': 'student',
-            //     'password': '123456789@',
-            //     'terms': true
-            // };
 
             localStorage.setItem('userdata', JSON.stringify(userdata));
-            alert("Signup Success");
+            alert("New Data Add Successfully");
 
             setTimeout(() => {
-                window.location.href = "/signup_and_login/login/index.html";
+                window.location.href = "/signup_and_login/dashboard/index.html";
             }, 500);
         }
     }
@@ -501,7 +468,9 @@ password.addEventListener('input', (event) => {
     else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
         passworderror.textContent = "Password must contain at least one special character";
     }
-    passworderror.textContent = "";
+    else {
+        passworderror.textContent = "";
+    }
 });
 
 var password = document.getElementById('password');
@@ -521,7 +490,9 @@ password.addEventListener('blur', (event) => {
     else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
         passworderror.textContent = "Password must contain at least one special character";
     }
-    passworderror.textContent = "";
+    else {
+        passworderror.textContent = "";
+    }
 });
 
 var confirmpassword = document.getElementById('confirmpassword');
@@ -540,11 +511,11 @@ confirmpassword.addEventListener('blur', (event) => {
                 if (password.value !== inputvalue) {
                     document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
                 }
-                else {
-                    document.getElementById('confirmpassworderror').textContent = "";
-                }
             }
         }
+    }
+    else {
+        document.getElementById('confirmpassworderror').textContent = "";
     }
 });
 
@@ -587,13 +558,14 @@ terms.addEventListener('input', (event) => {
 });
 
 
-function authlogin() {
+function authuser() {
     var get_login_user = JSON.parse(localStorage.getItem('loginuser'));
-    if (get_login_user !== null) {
-        window.location.href = '/signup_and_login/dashboard/index.html';
+    console.log(get_login_user, "===>");
+    if (get_login_user === null) {
+        window.location.href = '/signup_and_login/login/index.html';
     }
 }
-authlogin()
+authuser()
 
 
 

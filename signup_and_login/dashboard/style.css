@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffefcb, #c995ff);
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* container */
+.container {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* h2 */
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* top buttons */
+#logout,
+#add {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* button colors */
+#logout {
+    background: #ff4d4d;
+    color: white;
+}
+
+#add {
+    background: #4CAF50;
+    color: white;
+}
+
+#logout:hover {
+    background: #e60000;
+}
+
+#add:hover {
+    background: #45a049;
+}
+
+/* userlist */
+#userlist {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+/* usercard */
+.usercard {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.usercard:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.usercard p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.editbutton,
+.deletebutton {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editbutton {
+    background: #2196F3;
+    color: white;
+}
+
+.editbutton:hover {
+    background: #0b7dda;
+}
+
+.deletebutton {
+    background: #f44336;
+    color: white;
+}
+
+.deletebutton:hover {
+    background: #d32f2f;
+}
+
+.deletebutton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

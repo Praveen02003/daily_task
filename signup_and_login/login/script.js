@@ -1,4 +1,6 @@
 var userdata = JSON.parse(localStorage.getItem('userdata')) || {};
+console.log(userdata);
+
 const form = document.getElementById('loginform');
 
 form.addEventListener('submit', (event) => {
@@ -32,6 +34,10 @@ form.addEventListener('submit', (event) => {
         if (userdata[email]) {
             if (userdata[email]['password'] === password) {
                 alert('Login Success');
+                localStorage.setItem('loginuser', JSON.stringify(userdata[email]))
+                setTimeout(() => {
+                    window.location.href = '/signup_and_login/dashboard/index.html'
+                }, 500);
             }
             else {
                 alert('Password Mismatch')
@@ -42,3 +48,12 @@ form.addEventListener('submit', (event) => {
         }
     }
 });
+
+
+function authlogin() {
+    var get_login_user = JSON.parse(localStorage.getItem('loginuser'));
+    if (get_login_user !== null) {
+        window.location.href = '/signup_and_login/dashboard/index.html';
+    }
+}
+authlogin()

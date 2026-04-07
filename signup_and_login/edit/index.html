@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>EditUser Page</title>
+</head>
+
+<body>
+
+    <div class="main">
+        <h2>Edit Page</h2>
+
+        <form id="editform" novalidate>
+            <div>
+                <input type="text" placeholder="First Name" id="firstname">
+            </div>
+            <p id="firstnameerror"></p>
+            <div>
+                <input type="text" placeholder="Last Name" id="lastname">
+            </div>
+            <p id="lastnameerror"></p>
+            <div>
+                <input type="email" placeholder="Email" id="email">
+            </div>
+            <p id="emailerror"></p>
+            <div>
+                <label for="mobile">+1</label>
+                <input type="tel" placeholder="Mobile" id="mobile">
+            </div>
+            <p id="mobileerror"></p>
+            <div>
+                <select id="shift">
+                    <option value="">Select Shift</option>
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+            </div>
+            <p id="shifterror"></p>
+            <div>
+                <select id="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <p id="gendererror"></p>
+            <div>
+                <input type="text" placeholder="Job Title / Role" id="role">
+            </div>
+            <p id="roleerror"></p>
+            <div>
+                <input type="password" placeholder="Password" id="password">
+            </div>
+            <p id="passworderror"></p>
+            <div>
+                <input type="password" placeholder="Confirm Password" id="confirmpassword">
+            </div>
+            <p id="confirmpassworderror"></p>
+
+            <div class="mainterms">
+                <div class="termsrow">
+                    <input type="checkbox" id="terms">
+                    <label for="terms">Terms & Conditions</label>
+                </div>
+                <p id="termserror"></p>
+            </div>
+
+            <button type="submit">Update</button>
+        </form>
+
+        <div class="link">
+            <!-- <a href="/signup_and_login/dashboard/index.html">Go To UserDashboard</a> -->
+            <button id="gotodashboard">Go To UserDashboard</button>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
