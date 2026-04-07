@@ -280,7 +280,6 @@ email.addEventListener('input', (event) => {
         emailerror.textContent = "Extension cannot be empty";
         return;
     }
-
 });
 
 var email = document.getElementById('email');
