@@ -23,10 +23,16 @@ form.addEventListener('submit', (event) => {
         document.getElementById('firstnameerror').textContent = "Enter Firstname";
         isvalid = false;
     }
+    else {
+        document.getElementById('firstnameerror').textContent = "";
+    }
 
     if (!lastname) {
         document.getElementById('lastnameerror').textContent = "Enter Lastname";
         isvalid = false;
+    }
+    else {
+        document.getElementById('lastnameerror').textContent = "";
     }
 
     let emailError = "";
@@ -40,28 +46,24 @@ form.addEventListener('submit', (event) => {
     } else if (email.indexOf('@') !== email.lastIndexOf('@')) {
         emailError = "Only one '@' allowed";
     } else {
-        let [local, domain] = email.split("@");
+        var split_email = email.split("@");
 
-        if (!local) {
+        if (!split_email[0]) {
             emailError = "Email should not start with '@'";
-        } else if (!domain) {
+        } else if (!split_email[1]) {
             emailError = "Enter domain after '@'";
-        } else if (!domain.includes(".")) {
+        } else if (!split_email[1].includes(".")) {
             emailError = "Domain must contain '.'";
-        } else if (local.startsWith(".")) {
+        } else if (split_email[0].startsWith(".")) {
             emailError = "Email should not start with '.'";
-        } else if (domain.startsWith(".") || domain.endsWith(".")) {
+        } else if (split_email[1].startsWith(".") || split_email[1].endsWith(".")) {
             emailError = "Invalid domain format";
         } else {
-            let parts = domain.split(".");
+            let parts = split_email[1].split(".");
             let extension = parts[parts.length - 1];
 
             if (extension.length < 2) {
                 emailError = "Invalid extension";
-            } else if (/\d/.test(extension)) {
-                emailError = "Extension should not contain numbers";
-            } else if (!/^[a-zA-Z]+$/.test(extension)) {
-                emailError = "Extension must be letters only";
             }
         }
     }
@@ -69,6 +71,9 @@ form.addEventListener('submit', (event) => {
     if (emailError) {
         document.getElementById('emailerror').textContent = emailError;
         isvalid = false;
+    }
+    else {
+        document.getElementById('emailerror').textContent = '';
     }
 
     if (!mobile) {
@@ -78,25 +83,49 @@ form.addEventListener('submit', (event) => {
         document.getElementById('mobileerror').textContent = "Enter valid 10-digit number";
         isvalid = false;
     }
+    else {
+        document.getElementById('mobileerror').textContent = "";
+    }
 
     if (!shift) {
         document.getElementById('shifterror').textContent = "Select Shift";
         isvalid = false;
+    }
+    else {
+        document.getElementById('shifterror').textContent = "";
     }
 
     if (!gender) {
         document.getElementById('gendererror').textContent = "Select Gender";
         isvalid = false;
     }
+    else {
+        document.getElementById('gendererror').textContent = "";
+    }
 
     if (!role) {
         document.getElementById('roleerror').textContent = "Enter Role";
         isvalid = false;
     }
+    else {
+        document.getElementById('roleerror').textContent = "";
+    }
 
-    if (!password) {
-        document.getElementById('passworderror').textContent = "Enter Password";
+    if (!password || password.length < 8) {
+        document.getElementById('passworderror').textContent = "Password must be at least 8 characters";
         isvalid = false;
+    }
+    else if (!/\d/.test(password)) {
+        document.getElementById('passworderror').textContent = "Password must contain at least one number";
+        isvalid = false;
+    }
+
+    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        document.getElementById('passworderror').textContent = "Password must contain at least one special character";
+        isvalid = false;
+    }
+    else {
+        document.getElementById('passworderror').textContent = ""
     }
 
     if (!confirmpassword) {
@@ -106,10 +135,16 @@ form.addEventListener('submit', (event) => {
         document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
         isvalid = false;
     }
+    else {
+        document.getElementById('confirmpassworderror').textContent = "";
+    }
 
     if (!terms) {
         document.getElementById('termserror').textContent = "Accept Terms";
         isvalid = false;
+    }
+    else {
+        document.getElementById('termserror').textContent = "";
     }
 
     if (isvalid) {
@@ -166,8 +201,6 @@ mobile.addEventListener('input', (event) => {
 
     if (finalnumber.length < 10) {
         mobileerror.textContent = "Mobile Number must be 10 digits";
-    } else {
-        mobileerror.textContent = "";
     }
 
     event.target.value = formattednumber;
@@ -181,8 +214,6 @@ var emailerror = document.getElementById('emailerror');
 email.addEventListener('input', (event) => {
 
     var inputvalue = event.target.value;
-
-    emailerror.textContent = '';
 
     if (!inputvalue) {
         emailerror.textContent = 'Enter Email';
@@ -244,33 +275,11 @@ email.addEventListener('input', (event) => {
     }
 
     let extension = domainparts[domainparts.length - 1];
-    var domains = ['com', 'in'];
 
     if (extension.length === 0) {
         emailerror.textContent = "Extension cannot be empty";
         return;
     }
-
-    if (extension.length < 2) {
-        emailerror.textContent = "Extension must be at least 2 characters";
-        return;
-    }
-
-    if (/\d/.test(extension)) {
-        emailerror.textContent = "Extension should not contain numbers";
-        return;
-    }
-
-    if (!/^[a-zA-Z]+$/.test(extension)) {
-        emailerror.textContent = "Extension must contain only letters";
-        return;
-    }
-    if (!domains.includes(extension.toLowerCase())) {
-        emailerror.textContent = "Invalid domain extension";
-        return;
-    }
-
-    emailerror.textContent = "";
 
 });
 
@@ -341,33 +350,11 @@ email.addEventListener('blur', (event) => {
     }
 
     let extension = domainparts[domainparts.length - 1];
-    var domains = ['com', 'in'];
 
     if (extension.length === 0) {
         emailerror.textContent = "Extension cannot be empty";
         return;
     }
-
-    if (extension.length < 2) {
-        emailerror.textContent = "Extension must be at least 2 characters";
-        return;
-    }
-
-    if (/\d/.test(extension)) {
-        emailerror.textContent = "Extension should not contain numbers";
-        return;
-    }
-
-    if (!/^[a-zA-Z]+$/.test(extension)) {
-        emailerror.textContent = "Extension must contain only letters";
-        return;
-    }
-    if (!domains.includes(extension.toLowerCase())) {
-        emailerror.textContent = "Invalid domain extension";
-        return;
-    }
-
-    emailerror.textContent = "";
 });
 
 var firstname = document.getElementById('firstname');
@@ -379,9 +366,6 @@ firstname.addEventListener('blur', (event) => {
     var firstnameerror = document.getElementById('firstnameerror');
     if (!inputvalue) {
         firstnameerror.textContent = 'Enter Firstname';
-    }
-    else {
-        firstnameerror.textContent = '';
     }
 });
 
@@ -395,9 +379,6 @@ lastname.addEventListener('blur', (event) => {
     if (!inputvalue) {
         lastnameerror.textContent = 'Enter Lastname';
     }
-    else {
-        lastnameerror.textContent = '';
-    }
 });
 
 var mobile = document.getElementById('mobile');
@@ -409,9 +390,6 @@ mobile.addEventListener('blur', (event) => {
     var mobileerror = document.getElementById('mobileerror');
     if (!inputvalue) {
         mobileerror.textContent = 'Enter Mobile number';
-    }
-    else {
-        mobileerror.textContent = '';
     }
 });
 
@@ -425,9 +403,6 @@ shift.addEventListener('blur', (event) => {
     if (!inputvalue) {
         shifterror.textContent = 'Select Shift';
     }
-    else {
-        shifterror.textContent = '';
-    }
 });
 
 var gender = document.getElementById('gender');
@@ -439,9 +414,6 @@ gender.addEventListener('blur', (event) => {
     var gendererror = document.getElementById('gendererror');
     if (!inputvalue) {
         gendererror.textContent = 'Select Gender';
-    }
-    else {
-        gendererror.textContent = '';
     }
 });
 
@@ -455,8 +427,24 @@ role.addEventListener('blur', (event) => {
     if (!inputvalue) {
         roleerror.textContent = 'Enter Job / Role';
     }
-    else {
-        roleerror.textContent = '';
+});
+
+var password = document.getElementById('password');
+
+password.addEventListener('input', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var passworderror = document.getElementById('passworderror');
+    if (!inputvalue || inputvalue.length < 8) {
+        passworderror.textContent = 'Password must be at least 8 characters';
+    }
+    else if (!/\d/.test(inputvalue)) {
+        passworderror.textContent = "Password must contain at least one number";
+    }
+
+    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
+        passworderror.textContent = "Password must contain at least one special character";
     }
 });
 
@@ -467,11 +455,15 @@ password.addEventListener('blur', (event) => {
     var inputvalue = event.target.value;
 
     var passworderror = document.getElementById('passworderror');
-    if (!inputvalue) {
-        passworderror.textContent = 'Enter Password';
+    if (!inputvalue || inputvalue.length < 8) {
+        passworderror.textContent = 'Password must be at least 8 characters';
     }
-    else {
-        passworderror.textContent = '';
+    else if (!/\d/.test(inputvalue)) {
+        passworderror.textContent = "Password must contain at least one number";
+    }
+
+    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
+        passworderror.textContent = "Password must contain at least one special character";
     }
 });
 
@@ -490,9 +482,6 @@ confirmpassword.addEventListener('blur', (event) => {
             if (inputvalue) {
                 if (password.value !== inputvalue) {
                     document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
-                }
-                else {
-                    confirmpassworderror.textContent = '';
                 }
             }
         }
@@ -515,7 +504,7 @@ confirmpassword.addEventListener('input', (event) => {
                     document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
                 }
                 else {
-                    confirmpassworderror.textContent = '';
+                    document.getElementById('confirmpassworderror').textContent = "";
                 }
             }
         }
@@ -531,9 +520,6 @@ terms.addEventListener('input', (event) => {
     var termserror = document.getElementById('termserror');
     if (!inputvalue) {
         termserror.textContent = 'Please Accept terms and condition';
-    }
-    else {
-        termserror.textContent = "";
     }
 });
 
