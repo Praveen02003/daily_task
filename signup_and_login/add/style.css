@@ -1,3 +1,4 @@
+/* reset all */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* body part style */
 body {
     min-height: 100vh;
     display: flex;
@@ -14,10 +16,9 @@ body {
     background: linear-gradient(135deg, #ffeec5, #764ba2);
     opacity: 0;
     animation: fadeInPage 0.4s ease-in forwards;
-
 }
 
-/* main */
+/* main part style */
 .main {
     width: 100%;
     max-width: 420px;
@@ -27,12 +28,13 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* inside main h2 tag style */
 .main h2 {
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* addform */
+/* form part style */
 form {
     display: flex;
     flex-direction: column;
@@ -41,6 +43,7 @@ form {
     overflow-y: auto;
 }
 
+/* inside form div part */
 form div {
     display: flex;
     flex-direction: row;
@@ -48,6 +51,7 @@ form div {
     gap: 8px;
 }
 
+/* inside form div input part */
 form div input {
     flex: 1;
     width: 100%;
@@ -58,50 +62,47 @@ form div input {
     font-size: 14px;
 }
 
-form div p {
-    margin-left: 5px;
-}
-
-
+/* style all input and select part */
 input,
 select {
     width: 100%;
     padding: 10px;
+
     border-radius: 6px;
     border: 1px solid #ccc;
+
     outline: none;
     font-size: 14px;
 }
 
+/* focus effect for input */
 input:focus,
 select:focus {
     border-color: #4facfe;
 }
 
+/* label part style */
 label {
     font-size: 14px;
-    margin-bottom: 4px;
     color: #333;
 }
 
-.mainterms {
+/* terms part style */
+.mainTerms {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.termsrow {
+.termsRow {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 8px;
     width: 100%;
 }
 
-.termsrow input {
-    width: auto;
-}
-
+/* style the checked checkbox only */
+.termsRow input,
 input[type="checkbox"] {
     width: auto;
     flex: none;
@@ -121,6 +122,7 @@ form div:nth-last-child(2) input {
     width: auto;
 }
 
+/* style error message part */
 p {
     font-size: 12px;
     color: red;
@@ -128,22 +130,25 @@ p {
     min-height: 14px;
 }
 
+/* button part style */
 button {
     margin-top: 10px;
     padding: 12px;
     border: none;
+    border-radius: 6px;
     background: #4facfe;
     color: #fff;
     font-size: 16px;
-    border-radius: 6px;
     cursor: pointer;
     transition: 0.3s;
 }
 
+/* hover effect part */
 button:hover {
     background: #3a8ee6;
 }
 
+/* link part */
 .link {
     text-align: center;
     margin-top: 12px;
@@ -155,13 +160,14 @@ button:hover {
     font-weight: 500;
 }
 
+/* fade in animation */
 @keyframes fadeInPage {
     to {
         opacity: 1;
     }
 }
 
-/* mobile */
+/* responsive */
 @media (max-width: 500px) {
     .main {
         margin: 10px;

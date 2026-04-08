@@ -1,164 +1,111 @@
-var fulldata = JSON.parse(localStorage.getItem('userdata')) || {};
-var userdata = JSON.parse(localStorage.getItem('editdata')) || {};
-const form = document.getElementById('editform');
+// get data from localstorage
+let fullData = JSON.parse(localStorage.getItem('userdata')) || {};
+let editData = JSON.parse(localStorage.getItem('editdata')) || {};
 
-form.addEventListener('submit', (event) => {
+// target edit form
+const editForm = document.getElementById('editForm');
+
+// edit form submit event
+editForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    let userdata = JSON.parse(localStorage.getItem('userdata')) || {};
-    let isvalid = true;
+    let userData = JSON.parse(localStorage.getItem('userdata')) || {};
+    let isValid = true;
 
-
-    const firstname = document.getElementById('firstname').value;
-    const lastname = document.getElementById('lastname').value;
+    // get all input values
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
     const email = document.getElementById('email').value;
     const mobile = document.getElementById('mobile').value;
     const shift = document.getElementById('shift').value;
     const gender = document.getElementById('gender').value;
     const role = document.getElementById('role').value;
     const password = document.getElementById('password').value;
-    const confirmpassword = document.getElementById('confirmpassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
     const terms = document.getElementById('terms').checked;
 
-    if (!firstname) {
-        document.getElementById('firstnameerror').textContent = "Enter Firstname";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('firstnameerror').textContent = "";
-    }
-
-    if (!lastname) {
-        document.getElementById('lastnameerror').textContent = "Enter Lastname";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('lastnameerror').textContent = "";
+    // first name validation
+    if (!firstName) {
+        document.getElementById('firstNameError').textContent = "Enter First Name";
+        isValid = false;
+    } else {
+        document.getElementById('firstNameError').textContent = "";
     }
 
+    // last name validation
+    if (!lastName) {
+        document.getElementById('lastNameError').textContent = "Enter Last Name";
+        isValid = false;
+    } else {
+        document.getElementById('lastNameError').textContent = "";
+    }
+
+    // email validation
     let emailError = "";
 
     if (!email) {
         emailError = "Enter Email";
     } else if (email.includes(" ")) {
-        emailError = "Email should not contain space";
+        emailError = "No spaces allowed";
     } else if (!email.includes('@')) {
-        emailError = "Email must contain @";
-    } else if (email.indexOf('@') !== email.lastIndexOf('@')) {
-        emailError = "Only one '@' allowed";
+        emailError = "Must contain @";
+    }
+
+    document.getElementById('emailError').textContent = emailError;
+    if (emailError) isValid = false;
+
+    // mobile number validation
+    if (!mobile || mobile.length < 10) {
+        document.getElementById('mobileError').textContent = "Enter valid number";
+        isValid = false;
     } else {
-        var split_email = email.split("@");
-
-        if (!split_email[0]) {
-            emailError = "Email should not start with '@'";
-        } else if (!split_email[1]) {
-            emailError = "Enter domain after '@'";
-        } else if (!split_email[1].includes(".")) {
-            emailError = "Domain must contain '.'";
-        } else if (split_email[0].startsWith(".")) {
-            emailError = "Email should not start with '.'";
-        } else if (split_email[1].startsWith(".") || split_email[1].endsWith(".")) {
-            emailError = "Invalid domain format";
-        } else {
-            let parts = split_email[1].split(".");
-            let extension = parts[parts.length - 1];
-
-            if (extension.length < 2) {
-                emailError = "Invalid extension";
-            }
-        }
+        document.getElementById('mobileError').textContent = "";
     }
 
-    if (emailError) {
-        document.getElementById('emailerror').textContent = emailError;
-        isvalid = false;
-    }
-    else {
-        document.getElementById('emailerror').textContent = '';
-    }
-
-    if (!mobile) {
-        document.getElementById('mobileerror').textContent = "Enter Mobile";
-        isvalid = false;
-    } else if (mobile.length < 10) {
-        document.getElementById('mobileerror').textContent = "Enter valid 10-digit number";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('mobileerror').textContent = "";
-    }
-
-    if (!shift) {
-        document.getElementById('shifterror').textContent = "Select Shift";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('shifterror').textContent = "";
-    }
-
-    if (!gender) {
-        document.getElementById('gendererror').textContent = "Select Gender";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('gendererror').textContent = "";
-    }
-
-    if (!role) {
-        document.getElementById('roleerror').textContent = "Enter Role";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('roleerror').textContent = "";
-    }
-
+    // password validation
     if (!password || password.length < 8) {
-        document.getElementById('passworderror').textContent = "Password must be at least 8 characters";
-        isvalid = false;
-    }
-    else if (!/\d/.test(password)) {
-        document.getElementById('passworderror').textContent = "Password must contain at least one number";
-        isvalid = false;
-    }
-
-    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        document.getElementById('passworderror').textContent = "Password must contain at least one special character";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('passworderror').textContent = ""
+        document.getElementById('passwordError').textContent = "Min 8 characters";
+        isValid = false;
+    } else if (!/\d/.test(password)) {
+        document.getElementById('passwordError').textContent = "Must contain number";
+        isValid = false;
+    } else if (!/[!@#$%^&*]/.test(password)) {
+        document.getElementById('passwordError').textContent = "Must contain special char";
+        isValid = false;
+    } else {
+        document.getElementById('passwordError').textContent = "";
     }
 
-    if (!confirmpassword) {
-        document.getElementById('confirmpassworderror').textContent = "Enter Confirm-Password";
-        isvalid = false;
-    } else if (password && password !== confirmpassword) {
-        document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('confirmpassworderror').textContent = "";
+    // confirm-password validation
+    if (!confirmPassword || password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').textContent = "Passwords do not match";
+        isValid = false;
+    } else {
+        document.getElementById('confirmPasswordError').textContent = "";
     }
 
+    // terms validation
     if (!terms) {
-        document.getElementById('termserror').textContent = "Accept Terms";
-        isvalid = false;
-    }
-    else {
-        document.getElementById('termserror').textContent = "";
+        document.getElementById('termsError').textContent = "Accept Terms";
+        isValid = false;
+    } else {
+        document.getElementById('termsError').textContent = "";
     }
 
-    if (isvalid) {
-        var finalnumber = mobile.replace(/\D/g, "");
-        var get_oldemail = localStorage.getItem('editemail');
-        console.log(get_oldemail, "====>");
-        delete fulldata[get_oldemail];
+    // final validation to update data in local storage
+    if (isValid) {
+        const cleanNumber = mobile.replace(/\D/g, "");
+        const oldEmail = localStorage.getItem('editemail');
 
-        fulldata[email] = {
-            'firstname': firstname,
-            'lastname': lastname,
+        // remove old data
+        delete fullData[oldEmail];
+
+        // update new record
+        fullData[email] = {
+            'firstname': firstName,
+            'lastname': lastName,
             'email': email,
-            'mobile': '+1' + finalnumber,
+            'mobile': '+1' + cleanNumber,
             'shift': shift,
             'gender': gender,
             'role': role,
@@ -166,15 +113,24 @@ form.addEventListener('submit', (event) => {
             'terms': terms
         };
 
-        localStorage.setItem('userdata', JSON.stringify(fulldata));
-        localStorage.removeItem('editdata')
-        localStorage.removeItem('editemail')
-        alert("Data Updated Successfully");
+        // update localstorage
+        localStorage.setItem('userdata', JSON.stringify(fullData));
+
+        // clear previous edit data in localstorage 
+        localStorage.removeItem('editdata');
+        localStorage.removeItem('editemail');
+
+        alert("User updated successfully");
+
         setTimeout(() => {
             window.location.href = "/signup_and_login/dashboard/index.html";
         }, 500);
     }
 });
+
+
+
+// mobile number validation
 
 var mobile = document.getElementById('mobile');
 
@@ -199,93 +155,94 @@ mobile.addEventListener('input', (event) => {
         formattednumber = finalnumber;
     }
 
-    var mobileerror = document.getElementById('mobileerror');
+    var mobileError = document.getElementById('mobileError');
 
     if (finalnumber.length < 10) {
-        mobileerror.textContent = "Mobile Number must be 10 digits";
+        mobileError.textContent = "Mobile Number must be 10 digits";
     }
     else {
-        mobileerror.textContent = "";
+        mobileError.textContent = "";
     }
 
     event.target.value = formattednumber;
 
 });
 
+// email validation
 
 var email = document.getElementById('email');
-var emailerror = document.getElementById('emailerror');
+var emailError = document.getElementById('emailError');
 
 email.addEventListener('input', (event) => {
 
     var inputvalue = event.target.value;
 
     if (!inputvalue) {
-        emailerror.textContent = 'Enter Email';
+        emailError.textContent = 'Enter Email';
         return;
     }
 
     if (inputvalue.includes(" ")) {
-        emailerror.textContent = "Email should not contain space";
+        emailError.textContent = "Email should not contain space";
         return;
     }
 
     if (!inputvalue.includes('@')) {
-        emailerror.textContent = 'Email must contain @';
+        emailError.textContent = 'Email must contain @';
         return;
     }
 
     if (inputvalue.indexOf('@') !== inputvalue.lastIndexOf('@')) {
-        emailerror.textContent = "Email must contain only one '@'";
+        emailError.textContent = "Email must contain only one '@'";
         return;
     }
 
     let split_email = inputvalue.split("@");
 
     if (split_email[0].length === 0) {
-        emailerror.textContent = "Email should not start with '@'";
+        emailError.textContent = "Email should not start with '@'";
         return;
     }
 
     if (split_email[1].length === 0) {
-        emailerror.textContent = "Enter domain name after '@'";
+        emailError.textContent = "Enter domain name after '@'";
         return;
     }
 
     if (!split_email[1].includes(".")) {
-        emailerror.textContent = "Domain must contain '.'";
+        emailError.textContent = "Domain must contain '.'";
         return;
     }
 
     if (split_email[0].startsWith(".")) {
-        emailerror.textContent = "Email should not start with '.'";
+        emailError.textContent = "Email should not start with '.'";
         return;
     }
 
     if (split_email[1].startsWith(".")) {
-        emailerror.textContent = "Domain name should not start with '.'";
+        emailError.textContent = "Domain name should not start with '.'";
         return;
     }
 
     if (split_email[1].endsWith(".")) {
-        emailerror.textContent = "Domain name should not end with '.'";
+        emailError.textContent = "Domain name should not end with '.'";
         return;
     }
 
     let domainparts = split_email[1].split(".");
 
     if (domainparts.length < 2) {
-        emailerror.textContent = "Domain name must contain dot";
+        emailError.textContent = "Domain name must contain dot";
         return;
     }
 
     let extension = domainparts[domainparts.length - 1];
 
     if (extension.length === 0) {
-        emailerror.textContent = "Extension cannot be empty";
+        emailError.textContent = "Extension cannot be empty";
         return;
     }
-    emailerror.textContent = "";
+    emailError.textContent = "";
 });
 
 var email = document.getElementById('email');
@@ -294,104 +251,140 @@ email.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var emailerror = document.getElementById('emailerror');
+    var emailError = document.getElementById('emailError');
     if (!inputvalue) {
-        emailerror.textContent = 'Enter Email';
+        emailError.textContent = 'Enter Email';
         return;
     }
 
     if (inputvalue.includes(" ")) {
-        emailerror.textContent = "Email should not contain space";
+        emailError.textContent = "Email should not contain space";
         return;
     }
 
     if (!inputvalue.includes('@')) {
-        emailerror.textContent = 'Email must contain @';
+        emailError.textContent = 'Email must contain @';
         return;
     }
 
     if (inputvalue.indexOf('@') !== inputvalue.lastIndexOf('@')) {
-        emailerror.textContent = "Email must contain only one '@'";
+        emailError.textContent = "Email must contain only one '@'";
         return;
     }
 
     let split_email = inputvalue.split("@");
 
     if (split_email[0].length === 0) {
-        emailerror.textContent = "Email should not start with '@'";
+        emailError.textContent = "Email should not start with '@'";
         return;
     }
 
     if (split_email[1].length === 0) {
-        emailerror.textContent = "Enter domain name after '@'";
+        emailError.textContent = "Enter domain name after '@'";
         return;
     }
 
     if (!split_email[1].includes(".")) {
-        emailerror.textContent = "Domain must contain '.'";
+        emailError.textContent = "Domain must contain '.'";
         return;
     }
 
     if (split_email[0].startsWith(".")) {
-        emailerror.textContent = "Email should not start with '.'";
+        emailError.textContent = "Email should not start with '.'";
         return;
     }
 
     if (split_email[1].startsWith(".")) {
-        emailerror.textContent = "Domain name should not start with '.'";
+        emailError.textContent = "Domain name should not start with '.'";
         return;
     }
 
     if (split_email[1].endsWith(".")) {
-        emailerror.textContent = "Domain name should not end with '.'";
+        emailError.textContent = "Domain name should not end with '.'";
         return;
     }
 
     let domainparts = split_email[1].split(".");
 
     if (domainparts.length < 2) {
-        emailerror.textContent = "Domain name must contain dot";
+        emailError.textContent = "Domain name must contain dot";
         return;
     }
 
     let extension = domainparts[domainparts.length - 1];
 
     if (extension.length === 0) {
-        emailerror.textContent = "Extension cannot be empty";
+        emailError.textContent = "Extension cannot be empty";
         return;
     }
-    emailerror.textContent = "";
+    emailError.textContent = "";
 });
 
-var firstname = document.getElementById('firstname');
+// firstname validation
 
-firstname.addEventListener('blur', (event) => {
+var firstName = document.getElementById('firstName');
+
+firstName.addEventListener('input', (event) => {
 
     var inputvalue = event.target.value;
 
-    var firstnameerror = document.getElementById('firstnameerror');
+    var firstNameError = document.getElementById('firstNameError');
     if (!inputvalue) {
-        firstnameerror.textContent = 'Enter Firstname';
+        firstNameError.textContent = 'Enter First Name';
     }
     else {
-        firstnameerror.textContent = "";
+        firstNameError.textContent = "";
     }
 });
 
-var lastname = document.getElementById('lastname');
+var firstName = document.getElementById('firstName');
 
-lastname.addEventListener('blur', (event) => {
+firstName.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var lastnameerror = document.getElementById('lastnameerror');
+    var firstNameError = document.getElementById('firstNameError');
     if (!inputvalue) {
-        lastnameerror.textContent = 'Enter Lastname';
+        firstNameError.textContent = 'Enter First Name';
     }
     else {
-        lastnameerror.textContent = "";
+        firstNameError.textContent = "";
     }
 });
+
+// lastname validation
+
+var lastName = document.getElementById('lastName');
+
+lastName.addEventListener('input', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var lastNameError = document.getElementById('lastNameError');
+    if (!inputvalue) {
+        lastNameError.textContent = 'Enter Last Name';
+    }
+    else {
+        lastNameError.textContent = "";
+    }
+});
+
+var lastName = document.getElementById('lastName');
+
+lastName.addEventListener('blur', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var lastNameError = document.getElementById('lastNameError');
+    if (!inputvalue) {
+        lastNameError.textContent = 'Enter Last Name';
+    }
+    else {
+        lastNameError.textContent = "";
+    }
+});
+
+// mobile number validation
 
 var mobile = document.getElementById('mobile');
 
@@ -399,12 +392,29 @@ mobile.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var mobileerror = document.getElementById('mobileerror');
+    var mobileError = document.getElementById('mobileError');
     if (!inputvalue) {
-        mobileerror.textContent = 'Enter Mobile number';
+        mobileError.textContent = 'Enter Mobile number';
     }
     else {
-        mobileerror.textContent = "";
+        mobileError.textContent = "";
+    }
+});
+
+// shift validation
+
+var shift = document.getElementById('shift');
+
+shift.addEventListener('input', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var shiftError = document.getElementById('shiftError');
+    if (!inputvalue) {
+        shiftError.textContent = 'Select Shift';
+    }
+    else {
+        shiftError.textContent = "";
     }
 });
 
@@ -414,12 +424,29 @@ shift.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var shifterror = document.getElementById('shifterror');
+    var shiftError = document.getElementById('shiftError');
     if (!inputvalue) {
-        shifterror.textContent = 'Select Shift';
+        shiftError.textContent = 'Select Shift';
     }
     else {
-        shifterror.textContent = "";
+        shiftError.textContent = "";
+    }
+});
+
+// gender validation
+
+var gender = document.getElementById('gender');
+
+gender.addEventListener('input', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var genderError = document.getElementById('genderError');
+    if (!inputvalue) {
+        genderError.textContent = 'Select Gender';
+    }
+    else {
+        genderError.textContent = "";
     }
 });
 
@@ -429,12 +456,29 @@ gender.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var gendererror = document.getElementById('gendererror');
+    var genderError = document.getElementById('genderError');
     if (!inputvalue) {
-        gendererror.textContent = 'Select Gender';
+        genderError.textContent = 'Select Gender';
     }
     else {
-        gendererror.textContent = "";
+        genderError.textContent = "";
+    }
+});
+
+// role validation
+
+var role = document.getElementById('role');
+
+role.addEventListener('input', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var roleError = document.getElementById('roleError');
+    if (!inputvalue) {
+        roleError.textContent = 'Enter Job / Role';
+    }
+    else {
+        roleError.textContent = "";
     }
 });
 
@@ -444,14 +488,16 @@ role.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var roleerror = document.getElementById('roleerror');
+    var roleError = document.getElementById('roleError');
     if (!inputvalue) {
-        roleerror.textContent = 'Enter Job / Role';
+        roleError.textContent = 'Enter Job / Role';
     }
     else {
-        roleerror.textContent = "";
+        roleError.textContent = "";
     }
 });
+
+// password validation
 
 var password = document.getElementById('password');
 
@@ -459,19 +505,19 @@ password.addEventListener('input', (event) => {
 
     var inputvalue = event.target.value;
 
-    var passworderror = document.getElementById('passworderror');
+    var passwordError = document.getElementById('passwordError');
     if (!inputvalue || inputvalue.length < 8) {
-        passworderror.textContent = 'Password must be at least 8 characters';
+        passwordError.textContent = 'Password must be at least 8 characters';
     }
     else if (!/\d/.test(inputvalue)) {
-        passworderror.textContent = "Password must contain at least one number";
+        passwordError.textContent = "Password must contain at least one number";
     }
 
     else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
-        passworderror.textContent = "Password must contain at least one special character";
+        passwordError.textContent = "Password must contain at least one special character";
     }
     else {
-        passworderror.textContent = "";
+        passwordError.textContent = "";
     }
 });
 
@@ -481,68 +527,72 @@ password.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var passworderror = document.getElementById('passworderror');
+    var passwordError = document.getElementById('passwordError');
     if (!inputvalue || inputvalue.length < 8) {
-        passworderror.textContent = 'Password must be at least 8 characters';
+        passwordError.textContent = 'Password must be at least 8 characters';
     }
     else if (!/\d/.test(inputvalue)) {
-        passworderror.textContent = "Password must contain at least one number";
+        passwordError.textContent = "Password must contain at least one number";
     }
 
     else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
-        passworderror.textContent = "Password must contain at least one special character";
+        passwordError.textContent = "Password must contain at least one special character";
     }
     else {
-        passworderror.textContent = ""
+        passwordError.textContent = "";
     }
 });
 
-var confirmpassword = document.getElementById('confirmpassword');
+// confirm-password validation
 
-confirmpassword.addEventListener('blur', (event) => {
+var confirmPassword = document.getElementById('confirmPassword');
+
+confirmPassword.addEventListener('blur', (event) => {
 
     var inputvalue = event.target.value;
 
-    var confirmpassworderror = document.getElementById('confirmpassworderror');
+    var confirmPasswordError = document.getElementById('confirmPasswordError');
     if (!inputvalue) {
-        confirmpassworderror.textContent = 'Enter Confirm-Password';
+        confirmPasswordError.textContent = 'Enter Confirm-Password';
     }
     else if (inputvalue) {
         if (password.value) {
             if (inputvalue) {
                 if (password.value !== inputvalue) {
-                    document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
-                }
-            }
-        }
-    }
-    else {
-        document.getElementById('confirmpassworderror').textContent = "";
-    }
-});
-
-
-confirmpassword.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var confirmpassworderror = document.getElementById('confirmpassworderror');
-    if (!inputvalue) {
-        confirmpassworderror.textContent = 'Enter Confirmpassword';
-    }
-    else if (inputvalue) {
-        if (password.value) {
-            if (inputvalue) {
-                if (password.value !== inputvalue) {
-                    document.getElementById('confirmpassworderror').textContent = "Passwords do not match";
+                    document.getElementById('confirmPasswordError').textContent = "Passwords do not match";
                 }
                 else {
-                    document.getElementById('confirmpassworderror').textContent = "";
+                    document.getElementById('confirmPasswordError').textContent = "";
                 }
             }
         }
     }
 });
+
+confirmPassword.addEventListener('input', (event) => {
+
+    var inputvalue = event.target.value;
+
+    var confirmPasswordError = document.getElementById('confirmPasswordError');
+    if (!inputvalue) {
+        confirmPasswordError.textContent = 'Enter Confirm-Password';
+    }
+    else if (inputvalue) {
+        if (password.value) {
+            if (inputvalue) {
+                if (password.value !== inputvalue) {
+                    document.getElementById('confirmPasswordError').textContent = "Passwords do not match";
+                }
+                else {
+                    document.getElementById('confirmPasswordError').textContent = "";
+                }
+            }
+        }
+    }
+});
+
+
+// terms validation
 
 var terms = document.getElementById('terms');
 
@@ -550,66 +600,68 @@ terms.addEventListener('input', (event) => {
 
     var inputvalue = event.target.checked;
 
-    var termserror = document.getElementById('termserror');
+    var termsError = document.getElementById('termsError');
     if (!inputvalue) {
-        termserror.textContent = 'Please Accept terms and condition';
+        termsError.textContent = 'Please Accept terms and condition';
     }
     else {
-        termserror.textContent = "";
+        termsError.textContent = "";
     }
 });
 
-function applydata() {
-    var formattednumber = userdata['mobile'].slice(2);
-    if (formattednumber.length > 6) {
-        formattednumber = "(" + formattednumber.slice(0, 3) + ") " + formattednumber.slice(3, 6) + "-" + formattednumber.slice(6);
-    }
-    else if (formattednumber.length > 3) {
-        formattednumber = "(" + formattednumber.slice(0, 3) + ") " + formattednumber.slice(3);
-    }
-    console.log(formattednumber);
 
-    document.getElementById('firstname').value = userdata['firstname'];
-    document.getElementById('lastname').value = userdata['lastname'];
-    document.getElementById('email').value = userdata['email'];
-    document.getElementById('mobile').value = formattednumber;
-    document.getElementById('shift').value = userdata['shift'];
-    document.getElementById('gender').value = userdata['gender'];
-    document.getElementById('role').value = userdata['role'];
-    document.getElementById('password').value = userdata['password'];
-    document.getElementById('confirmpassword').value = userdata['password'];
-    document.getElementById('terms').checked = userdata['terms'];
+// function call when auth user pass
+function applyData() {
+    // console.log(editData.shift);
+    // console.log(editData.gender);
+
+    let formattedNumber = editData.mobile.slice(2);
+
+    if (formattedNumber.length > 6) {
+        formattedNumber = `(${formattedNumber.slice(0, 3)}) ${formattedNumber.slice(3, 6)}-${formattedNumber.slice(6)}`;
+    }
+
+    // fill all input with particular edit data
+    document.getElementById('firstName').value = editData.firstname;
+    document.getElementById('lastName').value = editData.lastname;
+    document.getElementById('email').value = editData.email;
+    document.getElementById('mobile').value = formattedNumber;
+    document.getElementById('shift').value = editData.shift;
+    document.getElementById('gender').value = editData.gender;
+    document.getElementById('role').value = editData.role;
+    document.getElementById('password').value = editData.password;
+    document.getElementById('confirmPassword').value = editData.password;
+    document.getElementById('terms').checked = editData.terms;
 }
 
-var get_dashboard_button = document.getElementById('gotodashboard');
-get_dashboard_button.addEventListener('click', function () {
-    gotodashboard();
-})
 
-function gotodashboard() {
-    localStorage.removeItem('editdata')
-    localStorage.removeItem('editemail')
+
+const goToDashboardButton = document.getElementById('goToDashboardButton');
+
+// add event to gotodashboard button
+
+goToDashboardButton.addEventListener('click', () => {
+    localStorage.removeItem('editdata');
+    localStorage.removeItem('editemail');
+
     window.location.href = "/signup_and_login/dashboard/index.html";
-}
+});
 
 
-function authuser() {
-    var get_login_user = JSON.parse(localStorage.getItem('loginuser'));
-    var edit_data = JSON.parse(localStorage.getItem('editdata'));
-    var edit_email = localStorage.getItem('editemail');
+// auth user ( prevent page )
+function authUser() {
+    const loginUser = JSON.parse(localStorage.getItem('loginuser'));
+    const storedEditData = JSON.parse(localStorage.getItem('editdata'));
+    const editEmail = localStorage.getItem('editemail');
 
-    if (get_login_user === null) {
+    if (!loginUser) {
         window.location.href = '/signup_and_login/login/index.html';
-    }
-    else if (edit_email === null || edit_data === null) {
+    } else if (!storedEditData || !editEmail) {
         window.location.href = '/signup_and_login/dashboard/index.html';
-    }
-    else {
-        applydata();
+    } else {
+        applyData();
     }
 }
-authuser()
 
-
-
-
+// initial function call when page loads
+authUser();

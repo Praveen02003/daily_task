@@ -1,3 +1,4 @@
+/* reset */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* body part style */
 body {
     min-height: 100vh;
     display: flex;
@@ -14,10 +16,8 @@ body {
     background: linear-gradient(135deg, #667eea, #764ba2);
     opacity: 0;
     animation: fadeInPage 0.4s ease-in forwards;
-
 }
 
-/* main */
 .main {
     width: 100%;
     max-width: 420px;
@@ -32,7 +32,7 @@ body {
     margin-bottom: 20px;
 }
 
-/* signupform */
+/* form part style */
 form {
     display: flex;
     flex-direction: column;
@@ -62,7 +62,7 @@ form div p {
     margin-left: 5px;
 }
 
-
+/* add style for input and select */
 input,
 select {
     width: 100%;
@@ -73,16 +73,19 @@ select {
     font-size: 14px;
 }
 
+/* add focus effect */
 input:focus,
 select:focus {
     border-color: #4facfe;
 }
 
+/* label part style */
 label {
     font-size: 14px;
     margin-bottom: 4px;
     color: #333;
 }
+
 
 .mainterms {
     display: flex;
@@ -98,10 +101,8 @@ label {
     width: 100%;
 }
 
-.termsrow input {
-    width: auto;
-}
 
+.termsrow input,
 input[type="checkbox"] {
     width: auto;
     flex: none;
@@ -121,6 +122,7 @@ form div:nth-last-child(2) input {
     width: auto;
 }
 
+/* error message part style */
 p {
     font-size: 12px;
     color: red;
@@ -128,22 +130,25 @@ p {
     min-height: 14px;
 }
 
+/* button part style */
 button {
     margin-top: 10px;
     padding: 12px;
     border: none;
+    border-radius: 6px;
     background: #4facfe;
     color: #fff;
     font-size: 16px;
-    border-radius: 6px;
     cursor: pointer;
     transition: 0.3s;
 }
 
+/* add hover effect */
 button:hover {
     background: #3a8ee6;
 }
 
+/* links */
 .link {
     text-align: center;
     margin-top: 12px;
@@ -155,13 +160,14 @@ button:hover {
     font-weight: 500;
 }
 
+/* fade in animation */
 @keyframes fadeInPage {
     to {
         opacity: 1;
     }
 }
 
-/* mobile */
+/* responsive */
 @media (max-width: 500px) {
     .main {
         margin: 10px;

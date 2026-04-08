@@ -4,19 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Datas</title>
+    <title>User Data</title>
+    <!-- external css -->
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
+    <!-- main container -->
     <div class="container">
-        <h2>User Datas</h2>
-        <h2 id="welcome"></h2>
-        <button id="logout">Logout</button>
-        <button id="add">Add New User</button>
-        <div id="userlist" class="card"></div>
+
+        <!-- page title -->
+        <h2>User Data</h2>
+
+        <!-- welcome message (comes as dynamic) -->
+        <h2 id="welcomeMessage"></h2>
+
+        <!-- action buttons -->
+        <button id="logoutBtn">Logout</button>
+        <button id="addUserBtn">Add New User</button>
+
+        <!-- user cards list (comes as dynamic) -->
+        <div id="userList" class="cardContainer"></div>
+
     </div>
+
+    <!-- external js -->
     <script src="./script.js"></script>
 
 </body>

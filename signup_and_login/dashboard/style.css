@@ -1,118 +1,71 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
+/* body part style */
 body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffefcb, #c995ff);
-    display: flex;
-    justify-content: center;
-    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
 }
 
-/* container */
+/* container part style */
 .container {
-    width: 100%;
-    max-width: 900px;
+    width: 85%;
+    margin: auto;
+    text-align: center;
 }
 
-/* h2 */
-h2 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* top buttons */
-#logout,
-#add {
-    padding: 10px 15px;
-    margin-right: 10px;
+/* button part style */
+button {
+    padding: 8px 14px;
+    margin: 10px 5px;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* button colors */
-#logout {
-    background: #ff4d4d;
+    background-color: #007bff;
     color: white;
-}
-
-#add {
-    background: #4CAF50;
-    color: white;
-}
-
-#logout:hover {
-    background: #e60000;
-}
-
-#add:hover {
-    background: #45a049;
-}
-
-/* userlist */
-#userlist {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 15px;
-}
-
-/* usercard */
-.usercard {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.usercard:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
 
-.usercard p {
-    margin: 5px 0;
-    font-size: 14px;
+/* userlist part style */
+#userList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
 }
 
+/* usercard part style */
+.userCard {
+    flex: 0 0 300px;
+    background: #ffffff;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.2s ease;
+}
+
+/* usercard hover part */
+.userCard:hover {
+    transform: translateY(-5px);
+}
+
+/* p tag inside usercard part style */
+.userCard p {
+    margin: 6px 0;
+}
+
+/* action part style  */
 .actions {
-    margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
-.editbutton,
-.deletebutton {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+/* edit button part style */
+.editButton {
+    background-color: #28a745;
 }
 
-.editbutton {
-    background: #2196F3;
-    color: white;
-}
-
-.editbutton:hover {
-    background: #0b7dda;
-}
-
-.deletebutton {
-    background: #f44336;
-    color: white;
-}
-
-.deletebutton:hover {
-    background: #d32f2f;
-}
-
-.deletebutton:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+/* delete button part style */
+.deleteButton {
+    background-color: #6c757d;
 }

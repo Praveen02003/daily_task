@@ -4,34 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- external css -->
     <link rel="stylesheet" href="./style.css">
+
     <title>Login Page</title>
 </head>
 
 <body>
 
-    <div class="loginform">
+    <!-- loginform container -->
+    <div class="loginForm">
+
+        <!-- heading -->
         <h2>Login</h2>
 
-        <form id="loginform" novalidate>
-            <div>
+        <!-- login form -->
+        <form id="loginForm" novalidate>
+
+            <!-- email -->
+            <div class="inputGroup">
                 <input type="email" placeholder="Enter Email" id="email">
-                <p id="emailerror"></p>
-            </div>
-            <div>
-                <input type="password" placeholder="Enter Password" id="password">
-                <p id="passworderror"></p>
+                <p id="emailError"></p>
             </div>
 
+            <!-- password -->
+            <div class="inputGroup">
+                <input type="password" placeholder="Enter Password" id="password">
+                <p id="passwordError"></p>
+            </div>
+
+            <!-- submit button -->
             <button type="submit">Login</button>
+
         </form>
 
+        <!-- link -->
         <div class="link">
             Don't have an account?
             <a href="/signup_and_login/signup/index.html">Sign Up</a>
         </div>
+
     </div>
 
+    <!-- external js -->
     <script src="./script.js"></script>
 
 </body>

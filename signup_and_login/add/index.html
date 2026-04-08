@@ -4,33 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- external css -->
     <link rel="stylesheet" href="./style.css">
-    <title>AddNew Page</title>
+    
+    <title>Add New Page</title>
 </head>
 
 <body>
 
+    <!-- main container -->
     <div class="main">
-        <h2>Add New</h2>
+        <h2>Add New User</h2>
 
-        <form id="addform" novalidate>
+        <!-- form -->
+        <form id="addForm" novalidate>
+
+            <!-- first name -->
             <div>
-                <input type="text" placeholder="First Name" id="firstname">
+                <input type="text" placeholder="First Name" id="firstName">
             </div>
-            <p id="firstnameerror"></p>
+            <p id="firstNameError"></p>
+
+            <!-- last name -->
             <div>
-                <input type="text" placeholder="Last Name" id="lastname">
+                <input type="text" placeholder="Last Name" id="lastName">
             </div>
-            <p id="lastnameerror"></p>
+            <p id="lastNameError"></p>
+
+            <!-- email -->
             <div>
                 <input type="email" placeholder="Email" id="email">
             </div>
-            <p id="emailerror"></p>
+            <p id="emailError"></p>
+
+            <!-- mobile number -->
             <div>
                 <label for="mobile">+1</label>
                 <input type="tel" placeholder="Mobile" id="mobile">
             </div>
-            <p id="mobileerror"></p>
+            <p id="mobileError"></p>
+
+            <!-- shift selection -->
             <div>
                 <select id="shift">
                     <option value="">Select Shift</option>
@@ -38,7 +52,9 @@
                     <option value="PM">PM</option>
                 </select>
             </div>
-            <p id="shifterror"></p>
+            <p id="shiftError"></p>
+
+            <!-- gender selection -->
             <div>
                 <select id="gender">
                     <option value="">Select Gender</option>
@@ -46,35 +62,46 @@
                     <option value="Female">Female</option>
                 </select>
             </div>
-            <p id="gendererror"></p>
+            <p id="genderError"></p>
+
+            <!-- role / job Title -->
             <div>
                 <input type="text" placeholder="Job Title / Role" id="role">
             </div>
-            <p id="roleerror"></p>
+            <p id="roleError"></p>
+
+            <!-- password -->
             <div>
                 <input type="password" placeholder="Password" id="password">
             </div>
-            <p id="passworderror"></p>
-            <div>
-                <input type="password" placeholder="Confirm Password" id="confirmpassword">
-            </div>
-            <p id="confirmpassworderror"></p>
+            <p id="passwordError"></p>
 
-            <div class="mainterms">
-                <div class="termsrow">
+            <!-- confirm-password -->
+            <div>
+                <input type="password" placeholder="Confirm Password" id="confirmPassword">
+            </div>
+            <p id="confirmPasswordError"></p>
+
+            <!-- terms -->
+            <div class="mainTerms">
+                <div class="termsRow">
                     <input type="checkbox" id="terms">
                     <label for="terms">Terms & Conditions</label>
                 </div>
-                <p id="termserror"></p>
+                <p id="termsError"></p>
             </div>
 
+            <!-- submit button -->
             <button type="submit">Add</button>
         </form>
 
+        <!-- link -->
         <div class="link">
-            <a href="/signup_and_login/dashboard/index.html">Go To UserDashboard</a>
+            <a href="/signup_and_login/dashboard/index.html">Go To User Dashboard</a>
         </div>
     </div>
+
+    <!-- external js -->
     <script src="./script.js"></script>
 </body>
 
