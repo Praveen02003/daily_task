@@ -80,7 +80,7 @@ function displayUsers() {
 
     // set a welcome message
     document.getElementById('welcomeMessage').textContent =
-        'Welcome ' + loginUser.firstName;
+        'Welcome ' + loginUser.firstname;
 
     // users loop
     Object.values(userData).forEach(user => {
