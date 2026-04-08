@@ -5,31 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Data</title>
+    <!-- fontawesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- external css -->
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <!-- main container -->
     <div class="container">
 
-        <!-- page title -->
+        <!-- title -->
         <h2>User Data</h2>
 
-        <!-- welcome message (comes as dynamic) -->
+        <!-- welcome -->
         <h2 id="welcomeMessage"></h2>
 
-        <!-- action buttons -->
-        <button id="logoutBtn">Logout</button>
-        <button id="addUserBtn">Add New User</button>
+        <div class="topBar">
 
-        <!-- user cards list (comes as dynamic) -->
+            <div class="left">
+                <button id="addUserButton">Add New User</button>
+            </div>
+
+            <div class="center">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" placeholder="Search here..." id="search">
+                <select id="selectShift">
+                    <option value="">Shift</option>
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+
+                <select id="selectGender">
+                    <option value="">Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <button id="searchButton">Apply</button>
+                <button id="clearButton">Clear</button>
+            </div>
+
+            <div class="right">
+                <button id="logoutButton">Logout</button>
+            </div>
+
+        </div>
+
+        <!-- no data -->
+        <h2 id="noData"></h2>
+
+        <!-- cardContainer -->
         <div id="userList" class="cardContainer"></div>
 
     </div>
 
-    <!-- external js -->
+    <!-- External js -->
     <script src="./script.js"></script>
 
 </body>

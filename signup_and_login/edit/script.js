@@ -1,3 +1,199 @@
+// validatePassword function
+function validatePassword(inputvalue) {
+    var passwordError = document.getElementById('passwordError');
+
+    if (!inputvalue || inputvalue.length < 8) {
+        passwordError.textContent = 'Password must be at least 8 characters';
+    }
+    else if (!/\d/.test(inputvalue)) {
+        passwordError.textContent = "Password must contain at least one number";
+    }
+    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
+        passwordError.textContent = "Password must contain at least one special character";
+    }
+    else {
+        passwordError.textContent = "";
+    }
+}
+
+// validateFirstName function
+function validateFirstName(inputvalue) {
+    var firstNameError = document.getElementById('firstNameError');
+    if (!inputvalue) {
+        firstNameError.textContent = 'Enter First Name';
+    } else {
+        firstNameError.textContent = "";
+    }
+}
+
+// validateLastName function
+function validateLastName(inputvalue) {
+    var lastNameError = document.getElementById('lastNameError');
+    if (!inputvalue) {
+        lastNameError.textContent = 'Enter Last Name';
+    } else {
+        lastNameError.textContent = "";
+    }
+}
+
+// validateEmail function
+function validateEmail(inputvalue) {
+    var emailError = document.getElementById('emailError');
+
+    if (!inputvalue) {
+        emailError.textContent = 'Enter Email';
+        return;
+    }
+
+    if (inputvalue.includes(" ")) {
+        emailError.textContent = "Email should not contain space";
+        return;
+    }
+
+    if (!inputvalue.includes('@')) {
+        emailError.textContent = 'Email must contain @';
+        return;
+    }
+
+    if (inputvalue.indexOf('@') !== inputvalue.lastIndexOf('@')) {
+        emailError.textContent = "Email must contain only one '@'";
+        return;
+    }
+
+    let split_email = inputvalue.split("@");
+
+    if (split_email[0].length === 0) {
+        emailError.textContent = "Email should not start with '@'";
+        return;
+    }
+
+    if (split_email[1].length === 0) {
+        emailError.textContent = "Enter domain name after '@'";
+        return;
+    }
+
+    if (!split_email[1].includes(".")) {
+        emailError.textContent = "Domain must contain '.'";
+        return;
+    }
+
+    if (split_email[0].startsWith(".")) {
+        emailError.textContent = "Email should not start with '.'";
+        return;
+    }
+
+    if (split_email[1].startsWith(".") || split_email[1].endsWith(".")) {
+        emailError.textContent = "Invalid domain format";
+        return;
+    }
+
+    let domainparts = split_email[1].split(".");
+    let extension = domainparts[domainparts.length - 1];
+
+    if (extension.length === 0) {
+        emailError.textContent = "Extension cannot be empty";
+        return;
+    }
+
+    emailError.textContent = "";
+}
+
+// validateMobileNumber function
+function validateMobileNumber(inputvalue, event) {
+
+    var mobileError = document.getElementById('mobileError');
+
+    var finalnumber = "";
+    var formattednumber = "";
+
+    if (!inputvalue) {
+        mobileError.textContent = "Enter Mobile Number";
+    }
+
+    let numbers = inputvalue.split("").filter(item => (item >= '0') && (item <= '9')).join("");
+
+    finalnumber = numbers.slice(0, 10);
+
+    if (finalnumber.length > 6) {
+        formattednumber = "(" + finalnumber.slice(0, 3) + ") " + finalnumber.slice(3, 6) + "-" + finalnumber.slice(6);
+    }
+    else if (finalnumber.length > 3) {
+        formattednumber = "(" + finalnumber.slice(0, 3) + ") " + finalnumber.slice(3);
+    }
+    else {
+        formattednumber = finalnumber;
+    }
+
+    if (finalnumber.length < 10) {
+        mobileError.textContent = "Mobile Number must be 10 digits";
+    } else {
+        mobileError.textContent = "";
+    }
+
+    if (event) {
+        event.target.value = formattednumber;
+    }
+}
+
+// validateShift function
+function validateShift(inputvalue) {
+    var shiftError = document.getElementById('shiftError');
+    if (!inputvalue) {
+        shiftError.textContent = "Select Shift";
+    }
+    else {
+        shiftError.textContent = "";
+    }
+}
+
+// validateRole function
+function validateRole(inputvalue) {
+    var roleError = document.getElementById('roleError');
+    if (!inputvalue) {
+        roleError.textContent = "Enter Job / Role";
+    }
+    else {
+        roleError.textContent = "";
+    }
+}
+
+// validateGender function
+function validateGender(inputvalue) {
+    var genderError = document.getElementById('genderError');
+    if (!inputvalue) {
+        genderError.textContent = "Select Gender";
+    }
+    else {
+        genderError.textContent = "";
+    }
+}
+
+// validateTerms
+function validateTerms(inputvalue) {
+    var termsError = document.getElementById('termsError');
+    if (!inputvalue) {
+        termsError.textContent = "Accept terms and condition";
+    }
+    else {
+        termsError.textContent = "";
+    }
+}
+
+// validateConfirmPassword
+function validateConfirmPassword(inputvalue) {
+    var confirmPasswordError = document.getElementById('confirmPasswordError');
+
+    if (!inputvalue) {
+        confirmPasswordError.textContent = 'Enter Confirm-Password';
+    }
+    else if (password.value !== inputvalue) {
+        confirmPasswordError.textContent = "Passwords do not match";
+    }
+    else {
+        confirmPasswordError.textContent = "";
+    }
+}
+
 // get data from localstorage
 let fullData = JSON.parse(localStorage.getItem('userdata')) || {};
 let editData = JSON.parse(localStorage.getItem('editdata')) || {};
@@ -24,77 +220,26 @@ editForm.addEventListener('submit', (event) => {
     const confirmPassword = document.getElementById('confirmPassword').value;
     const terms = document.getElementById('terms').checked;
 
-    // first name validation
-    if (!firstName) {
-        document.getElementById('firstNameError').textContent = "Enter First Name";
-        isValid = false;
-    } else {
-        document.getElementById('firstNameError').textContent = "";
-    }
+    validateFirstName(firstName);
+    validateLastName(lastName);
+    validateEmail(email);
+    validateMobileNumber(mobile);
+    validateShift(shift);
+    validateGender(gender);
+    validateRole(role);
+    validatePassword(password);
+    validateConfirmPassword(confirmPassword);
+    validateTerms(terms);
 
-    // last name validation
-    if (!lastName) {
-        document.getElementById('lastNameError').textContent = "Enter Last Name";
-        isValid = false;
-    } else {
-        document.getElementById('lastNameError').textContent = "";
-    }
+    const finalNumber = mobile.replace(/\D/g, "");
 
-    // email validation
-    let emailError = "";
-
-    if (!email) {
-        emailError = "Enter Email";
-    } else if (email.includes(" ")) {
-        emailError = "No spaces allowed";
-    } else if (!email.includes('@')) {
-        emailError = "Must contain @";
-    }
-
-    document.getElementById('emailError').textContent = emailError;
-    if (emailError) isValid = false;
-
-    // mobile number validation
-    if (!mobile || mobile.length < 10) {
-        document.getElementById('mobileError').textContent = "Enter valid number";
+    if (!firstName || !lastName || !email || finalNumber.length < 10 || !password || password.length < 8 || password !== confirmPassword || !terms) {
         isValid = false;
-    } else {
-        document.getElementById('mobileError').textContent = "";
-    }
-
-    // password validation
-    if (!password || password.length < 8) {
-        document.getElementById('passwordError').textContent = "Min 8 characters";
-        isValid = false;
-    } else if (!/\d/.test(password)) {
-        document.getElementById('passwordError').textContent = "Must contain number";
-        isValid = false;
-    } else if (!/[!@#$%^&*]/.test(password)) {
-        document.getElementById('passwordError').textContent = "Must contain special char";
-        isValid = false;
-    } else {
-        document.getElementById('passwordError').textContent = "";
-    }
-
-    // confirm-password validation
-    if (!confirmPassword || password !== confirmPassword) {
-        document.getElementById('confirmPasswordError').textContent = "Passwords do not match";
-        isValid = false;
-    } else {
-        document.getElementById('confirmPasswordError').textContent = "";
-    }
-
-    // terms validation
-    if (!terms) {
-        document.getElementById('termsError').textContent = "Accept Terms";
-        isValid = false;
-    } else {
-        document.getElementById('termsError').textContent = "";
     }
 
     // final validation to update data in local storage
     if (isValid) {
-        const cleanNumber = mobile.replace(/\D/g, "");
+        const cleanedNumber = mobile.replace(/\D/g, "");
         const oldEmail = localStorage.getItem('editemail');
 
         // remove old data
@@ -105,7 +250,7 @@ editForm.addEventListener('submit', (event) => {
             'firstname': firstName,
             'lastname': lastName,
             'email': email,
-            'mobile': '+1' + cleanNumber,
+            'mobile': '+1' + cleanedNumber,
             'shift': shift,
             'gender': gender,
             'role': role,
@@ -129,484 +274,114 @@ editForm.addEventListener('submit', (event) => {
 });
 
 
-
-// mobile number validation
-
-var mobile = document.getElementById('mobile');
-
-mobile.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-    var finalnumber = "";
-    var formattednumber = "";
-
-    let numbers = inputvalue.split("").filter(item => (item >= '0') && (item <= '9')).join("");
-
-    finalnumber = numbers.slice(0, 10);
-    // console.log(typeof finalnumber.length);
-
-    if (finalnumber.length > 6) {
-        formattednumber = "(" + finalnumber.slice(0, 3) + ") " + finalnumber.slice(3, 6) + "-" + finalnumber.slice(6);
-    }
-    else if (finalnumber.length > 3) {
-        formattednumber = "(" + finalnumber.slice(0, 3) + ") " + finalnumber.slice(3);
-    }
-    else {
-        formattednumber = finalnumber;
-    }
-
-    var mobileError = document.getElementById('mobileError');
-
-    if (finalnumber.length < 10) {
-        mobileError.textContent = "Mobile Number must be 10 digits";
-    }
-    else {
-        mobileError.textContent = "";
-    }
-
-    event.target.value = formattednumber;
-
-});
-
-// email validation
-
-var email = document.getElementById('email');
-var emailError = document.getElementById('emailError');
-
-email.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    if (!inputvalue) {
-        emailError.textContent = 'Enter Email';
-        return;
-    }
-
-    if (inputvalue.includes(" ")) {
-        emailError.textContent = "Email should not contain space";
-        return;
-    }
-
-    if (!inputvalue.includes('@')) {
-        emailError.textContent = 'Email must contain @';
-        return;
-    }
-
-    if (inputvalue.indexOf('@') !== inputvalue.lastIndexOf('@')) {
-        emailError.textContent = "Email must contain only one '@'";
-        return;
-    }
-
-    let split_email = inputvalue.split("@");
-
-    if (split_email[0].length === 0) {
-        emailError.textContent = "Email should not start with '@'";
-        return;
-    }
-
-    if (split_email[1].length === 0) {
-        emailError.textContent = "Enter domain name after '@'";
-        return;
-    }
-
-    if (!split_email[1].includes(".")) {
-        emailError.textContent = "Domain must contain '.'";
-        return;
-    }
-
-    if (split_email[0].startsWith(".")) {
-        emailError.textContent = "Email should not start with '.'";
-        return;
-    }
-
-    if (split_email[1].startsWith(".")) {
-        emailError.textContent = "Domain name should not start with '.'";
-        return;
-    }
-
-    if (split_email[1].endsWith(".")) {
-        emailError.textContent = "Domain name should not end with '.'";
-        return;
-    }
-
-    let domainparts = split_email[1].split(".");
-
-    if (domainparts.length < 2) {
-        emailError.textContent = "Domain name must contain dot";
-        return;
-    }
-
-    let extension = domainparts[domainparts.length - 1];
-
-    if (extension.length === 0) {
-        emailError.textContent = "Extension cannot be empty";
-        return;
-    }
-    emailError.textContent = "";
-});
-
-var email = document.getElementById('email');
-
-email.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var emailError = document.getElementById('emailError');
-    if (!inputvalue) {
-        emailError.textContent = 'Enter Email';
-        return;
-    }
-
-    if (inputvalue.includes(" ")) {
-        emailError.textContent = "Email should not contain space";
-        return;
-    }
-
-    if (!inputvalue.includes('@')) {
-        emailError.textContent = 'Email must contain @';
-        return;
-    }
-
-    if (inputvalue.indexOf('@') !== inputvalue.lastIndexOf('@')) {
-        emailError.textContent = "Email must contain only one '@'";
-        return;
-    }
-
-    let split_email = inputvalue.split("@");
-
-    if (split_email[0].length === 0) {
-        emailError.textContent = "Email should not start with '@'";
-        return;
-    }
-
-    if (split_email[1].length === 0) {
-        emailError.textContent = "Enter domain name after '@'";
-        return;
-    }
-
-    if (!split_email[1].includes(".")) {
-        emailError.textContent = "Domain must contain '.'";
-        return;
-    }
-
-    if (split_email[0].startsWith(".")) {
-        emailError.textContent = "Email should not start with '.'";
-        return;
-    }
-
-    if (split_email[1].startsWith(".")) {
-        emailError.textContent = "Domain name should not start with '.'";
-        return;
-    }
-
-    if (split_email[1].endsWith(".")) {
-        emailError.textContent = "Domain name should not end with '.'";
-        return;
-    }
-
-    let domainparts = split_email[1].split(".");
-
-    if (domainparts.length < 2) {
-        emailError.textContent = "Domain name must contain dot";
-        return;
-    }
-
-    let extension = domainparts[domainparts.length - 1];
-
-    if (extension.length === 0) {
-        emailError.textContent = "Extension cannot be empty";
-        return;
-    }
-    emailError.textContent = "";
-});
-
-// firstname validation
-
+// target firstname
 var firstName = document.getElementById('firstName');
 
-firstName.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var firstNameError = document.getElementById('firstNameError');
-    if (!inputvalue) {
-        firstNameError.textContent = 'Enter First Name';
-    }
-    else {
-        firstNameError.textContent = "";
-    }
+firstName.addEventListener('input', function (event) {
+    validateFirstName(event.target.value);
 });
 
-var firstName = document.getElementById('firstName');
-
-firstName.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var firstNameError = document.getElementById('firstNameError');
-    if (!inputvalue) {
-        firstNameError.textContent = 'Enter First Name';
-    }
-    else {
-        firstNameError.textContent = "";
-    }
+firstName.addEventListener('blur', function (event) {
+    validateFirstName(event.target.value);
 });
 
-// lastname validation
 
+// target lastname
 var lastName = document.getElementById('lastName');
 
-lastName.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var lastNameError = document.getElementById('lastNameError');
-    if (!inputvalue) {
-        lastNameError.textContent = 'Enter Last Name';
-    }
-    else {
-        lastNameError.textContent = "";
-    }
+lastName.addEventListener('input', function (event) {
+    validateLastName(event.target.value);
 });
 
-var lastName = document.getElementById('lastName');
-
-lastName.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var lastNameError = document.getElementById('lastNameError');
-    if (!inputvalue) {
-        lastNameError.textContent = 'Enter Last Name';
-    }
-    else {
-        lastNameError.textContent = "";
-    }
+lastName.addEventListener('blur', function (event) {
+    validateLastName(event.target.value);
 });
 
-// mobile number validation
 
-var mobile = document.getElementById('mobile');
+// target email
+var email = document.getElementById('email');
 
-mobile.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var mobileError = document.getElementById('mobileError');
-    if (!inputvalue) {
-        mobileError.textContent = 'Enter Mobile number';
-    }
-    else {
-        mobileError.textContent = "";
-    }
+email.addEventListener('input', function (event) {
+    validateEmail(event.target.value);
 });
 
-// shift validation
-
-var shift = document.getElementById('shift');
-
-shift.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var shiftError = document.getElementById('shiftError');
-    if (!inputvalue) {
-        shiftError.textContent = 'Select Shift';
-    }
-    else {
-        shiftError.textContent = "";
-    }
+email.addEventListener('blur', function (event) {
+    validateEmail(event.target.value);
 });
 
-var shift = document.getElementById('shift');
 
-shift.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var shiftError = document.getElementById('shiftError');
-    if (!inputvalue) {
-        shiftError.textContent = 'Select Shift';
-    }
-    else {
-        shiftError.textContent = "";
-    }
-});
-
-// gender validation
-
-var gender = document.getElementById('gender');
-
-gender.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var genderError = document.getElementById('genderError');
-    if (!inputvalue) {
-        genderError.textContent = 'Select Gender';
-    }
-    else {
-        genderError.textContent = "";
-    }
-});
-
-var gender = document.getElementById('gender');
-
-gender.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var genderError = document.getElementById('genderError');
-    if (!inputvalue) {
-        genderError.textContent = 'Select Gender';
-    }
-    else {
-        genderError.textContent = "";
-    }
-});
-
-// role validation
-
+// target role
 var role = document.getElementById('role');
 
-role.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var roleError = document.getElementById('roleError');
-    if (!inputvalue) {
-        roleError.textContent = 'Enter Job / Role';
-    }
-    else {
-        roleError.textContent = "";
-    }
+role.addEventListener('input', function (event) {
+    validateRole(event.target.value);
 });
 
-var role = document.getElementById('role');
-
-role.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var roleError = document.getElementById('roleError');
-    if (!inputvalue) {
-        roleError.textContent = 'Enter Job / Role';
-    }
-    else {
-        roleError.textContent = "";
-    }
-});
-
-// password validation
-
-var password = document.getElementById('password');
-
-password.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var passwordError = document.getElementById('passwordError');
-    if (!inputvalue || inputvalue.length < 8) {
-        passwordError.textContent = 'Password must be at least 8 characters';
-    }
-    else if (!/\d/.test(inputvalue)) {
-        passwordError.textContent = "Password must contain at least one number";
-    }
-
-    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
-        passwordError.textContent = "Password must contain at least one special character";
-    }
-    else {
-        passwordError.textContent = "";
-    }
-});
-
-var password = document.getElementById('password');
-
-password.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var passwordError = document.getElementById('passwordError');
-    if (!inputvalue || inputvalue.length < 8) {
-        passwordError.textContent = 'Password must be at least 8 characters';
-    }
-    else if (!/\d/.test(inputvalue)) {
-        passwordError.textContent = "Password must contain at least one number";
-    }
-
-    else if (!/[!@#$%^&*(),.?":{}|<>]/.test(inputvalue)) {
-        passwordError.textContent = "Password must contain at least one special character";
-    }
-    else {
-        passwordError.textContent = "";
-    }
-});
-
-// confirm-password validation
-
-var confirmPassword = document.getElementById('confirmPassword');
-
-confirmPassword.addEventListener('blur', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var confirmPasswordError = document.getElementById('confirmPasswordError');
-    if (!inputvalue) {
-        confirmPasswordError.textContent = 'Enter Confirm-Password';
-    }
-    else if (inputvalue) {
-        if (password.value) {
-            if (inputvalue) {
-                if (password.value !== inputvalue) {
-                    document.getElementById('confirmPasswordError').textContent = "Passwords do not match";
-                }
-                else {
-                    document.getElementById('confirmPasswordError').textContent = "";
-                }
-            }
-        }
-    }
-});
-
-confirmPassword.addEventListener('input', (event) => {
-
-    var inputvalue = event.target.value;
-
-    var confirmPasswordError = document.getElementById('confirmPasswordError');
-    if (!inputvalue) {
-        confirmPasswordError.textContent = 'Enter Confirm-Password';
-    }
-    else if (inputvalue) {
-        if (password.value) {
-            if (inputvalue) {
-                if (password.value !== inputvalue) {
-                    document.getElementById('confirmPasswordError').textContent = "Passwords do not match";
-                }
-                else {
-                    document.getElementById('confirmPasswordError').textContent = "";
-                }
-            }
-        }
-    }
+role.addEventListener('blur', function (event) {
+    validateRole(event.target.value);
 });
 
 
-// terms validation
+// target gender
+var gender = document.getElementById('gender');
 
+gender.addEventListener('input', function (event) {
+    validateGender(event.target.value);
+});
+
+gender.addEventListener('blur', function (event) {
+    validateGender(event.target.value);
+});
+
+
+// target shift
+var shift = document.getElementById('shift');
+
+shift.addEventListener('input', function (event) {
+    validateShift(event.target.value);
+});
+
+shift.addEventListener('blur', function (event) {
+    validateShift(event.target.value);
+});
+
+
+// target terms
 var terms = document.getElementById('terms');
 
-terms.addEventListener('input', (event) => {
+terms.addEventListener('input', function (event) {
+    validateTerms(event.target.checked);
+});
 
-    var inputvalue = event.target.checked;
+// target password
+var password = document.getElementById('password');
+password.addEventListener('input', function (event) {
+    validatePassword(event.target.value);
+});
+password.addEventListener('blur', function (event) {
+    validatePassword(event.target.value);
+});
 
-    var termsError = document.getElementById('termsError');
-    if (!inputvalue) {
-        termsError.textContent = 'Please Accept terms and condition';
-    }
-    else {
-        termsError.textContent = "";
-    }
+
+// target confirmPassword
+
+var confirmPassword = document.getElementById('confirmPassword');
+confirmPassword.addEventListener('input', function (event) {
+    validateConfirmPassword(event.target.value);
+});
+confirmPassword.addEventListener('blur', function (event) {
+    validateConfirmPassword(event.target.value);
+});
+
+
+// target mobile
+
+var mobile = document.getElementById('mobile');
+mobile.addEventListener('input', function (event) {
+    validateMobileNumber(event.target.value, event);
+});
+mobile.addEventListener('blur', function (event) {
+    validateMobileNumber(event.target.value, event);
 });
 
 

@@ -1,6 +1,6 @@
 // get data from localstorage
 let userData = JSON.parse(localStorage.getItem('userdata')) || {};
-console.log(userData);
+// console.log(userData);
 
 // target login form
 const loginForm = document.getElementById('loginForm');
