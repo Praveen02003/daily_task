@@ -17,7 +17,9 @@
         <!-- headerRow -->
         <header class="headerRow">
             <!-- welcomeMessage -->
-            <h2 id="welcomeMessage"></h2>
+            <h2 id="welcomeMessage">
+                
+            </h2>
             <!-- logoutButton -->
             <button id="logoutButton">
                 <i class="fa-solid fa-right-from-bracket"></i> Logout
@@ -36,7 +38,7 @@
             <div class="center">
                 <div class="inputGroup">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="search" placeholder="Search users..." id="search">
+                    <input type="search" placeholder="Search by Name, Email, or Mobile Number" id="search">
                 </div>
 
                 <!-- selectShift -->
@@ -53,6 +55,29 @@
                     <option value="Female">Female</option>
                 </select>
 
+                <!-- selectSort -->
+                <div class="dropdown">
+                    <button class="dropdownButton" id="dropdownButton">
+                        <i class="fa-solid fa-filter"></i>
+                        Sort By
+                    </button>
+
+                    <div id="dropdownContent" class="dropDownContent">
+                        <label>
+                            <input type="checkbox" value="nameAscending"> Name Ascending
+                        </label>
+                        <label>
+                            <input type="checkbox" value="nameDescending"> Name Descending
+                        </label>
+                        <label>
+                            <input type="checkbox" value="emailAscending"> Email Ascending
+                        </label>
+                        <label>
+                            <input type="checkbox" value="emailDescending"> Email Descending
+                        </label>
+                    </div>
+                </div>
+
                 <!-- buttonGroup -->
                 <div class="buttonGroup">
                     <button id="searchButton">Apply</button>
@@ -60,14 +85,56 @@
                 </div>
             </div>
         </div>
-        
         <!-- noData (comes as dynamic) -->
         <h2 id="noData"></h2>
 
         <!-- cardContainer -->
         <div id="userList" class="cardContainer"></div>
+        <!-- pagination -->
+        <div id="pagination"></div>
     </div>
 
+
+    <!-- delete confimation modal -->
+    <div id="mainModal" class="mainModal">
+        <div class="modalContent">
+
+            <div class="modalHeader">
+                <h2>Warning!!!!!</h2>
+            </div>
+
+            <div class="modalBody">
+                <h3>Are You Sure Want to Delete ?</h3>
+            </div>
+
+            <div class="modalFooter">
+                <button id="okModalButton">Ok</button>
+                <button id="closeModalButton">Close</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- View Modal -->
+
+    <!-- Modal -->
+    <div id="userModal" class="userModal">
+        <div class="contentModal">
+
+            <div class="headerModal">
+                <h2>User Details</h2>
+            </div>
+
+            <div class="userModalBody" id="userModalBody">
+                <!-- user data comes from dynamic -->
+            </div>
+
+            <div class="footerModal">
+                <button id="modalClose">Close</button>
+            </div>
+
+        </div>
+    </div>
     <script src="./script.js"></script>
 </body>
 

@@ -1,7 +1,101 @@
+// toggleDropdown function
+function toggleDropdown() {
+    var dropdownContent = document.getElementById("dropdownContent");
+
+    if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+    } else {
+        dropdownContent.style.display = "block";
+    }
+}
+
+// target dropdown button
+var dropdownbutton = document.getElementById('dropdownButton');
+dropdownbutton.addEventListener('click', function () {
+    toggleDropdown();
+});
+
+// showUserDetails function
+function showUserDetails(user) {
+    const body = document.getElementById("userModalBody");
+
+    body.innerHTML = `
+        <div class="userDetail"><span>Name:</span> ${user.firstname} ${user.lastname}</div>
+        <div class="userDetail"><span>Email:</span> ${user.email}</div>
+        <div class="userDetail"><span>Phone:</span> ${user.mobile}</div>
+        <div class="userDetail"><span>Gender:</span> ${user.gender}</div>
+        <div class="userDetail"><span>Role:</span> ${user.role}</div>
+        <div class="userDetail"><span>Shift:</span> ${user.shift}</div>
+    `;
+}
+
+
+// view modal function
+function modalClose() {
+    document.getElementById("userModal").style.display = "none";
+}
+
+function modalOpen(parsedViewedData) {
+    showUserDetails(parsedViewedData);
+    document.getElementById("userModal").style.display = "flex";
+}
+
+// target modalClose button
+var modalCloseButton = document.getElementById('modalClose')
+// add event to modalClose button
+modalCloseButton.addEventListener('click', function () {
+    modalClose();
+})
+
+
+
+
+// delete confirmation modal
+function openModal(grandParent) {
+    document.getElementById("mainModal").style.display = "flex";
+    var okModalButton = document.getElementById("okModalButton");
+    okModalButton.addEventListener('click', function () {
+        const email = grandParent.getAttribute('data');
+        console.log(email);
+        deleteUser(email);
+        grandParent.remove();
+        closeModal();
+        // paginationConcept();
+        // displayUsers();
+
+    })
+}
+
+function closeModal() {
+    document.getElementById("mainModal").style.display = "none";
+}
+
+
+// target closeModalButton
+var closeModalButton = document.getElementById('closeModalButton');
+
+// add event to openModalButton
+closeModalButton.addEventListener('click', function () {
+    closeModal();
+})
+
+
+window.onclick = function (e) {
+    let modal = document.getElementById("mainModal");
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
 // get all data from local storage
 var userData = JSON.parse(localStorage.getItem("userdata")) || {};
 var userDataValues = Object.values(userData) || [];
 var loginUser = JSON.parse(localStorage.getItem("loginuser")) || {};
+
+// cardlimit
+var cardPerPage = 5;
+var startPage = 0;
+var endPage = cardPerPage;
 
 // logout function
 function logoutUser() {
@@ -38,9 +132,9 @@ function enableDeleteButtons() {
         const email = element.getAttribute('data');
 
         element.addEventListener('click', function () {
-            const selectedEmail = this.getAttribute('data');
-            this.parentElement.parentElement.remove();
-            deleteUser(selectedEmail);
+            var grandParent = this.parentElement.parentElement;
+            openModal(grandParent);
+            // console.log(grandParent.getAttribute('data'));
         });
 
         // disable for logged-in user
@@ -68,16 +162,120 @@ function enableEditButtons() {
     }
 }
 
+// enableEditButtons function
+function enableViewButtons() {
+    const viewButtons = document.getElementsByClassName('viewButton');
+
+    for (const element of viewButtons) {
+        element.addEventListener('click', function () {
+            const viewedData = this.getAttribute('data');
+            const parsedViewedData = JSON.parse(viewedData);
+            modalOpen(parsedViewedData);
+        });
+    }
+}
+
+// paginationConcept function
+
+function paginationConcept() {
+    var pagination = document.getElementById('pagination');
+    pagination.innerHTML = "";
+    // console.log(userDataValues.length);
+
+
+    var totalPages = Math.ceil(userDataValues.length / cardPerPage);
+
+    let currentPage = Math.floor(startPage / cardPerPage) + 1;
+
+    // create previous button
+    var createPreviousButton = document.createElement('button');
+    createPreviousButton.innerText = "Previous";
+
+    createPreviousButton.disabled = currentPage === 1;
+
+    createPreviousButton.addEventListener('click', function () {
+        if (currentPage > 1) {
+            startPage -= cardPerPage;
+            endPage = startPage + cardPerPage;
+            displayUsers();
+            paginationConcept();
+        }
+    });
+
+    pagination.appendChild(createPreviousButton);
+
+    // loop the pagination number
+    for (let index = 1; index <= totalPages; index++) {
+        // create a pagination button
+        var createButton = document.createElement("button");
+        createButton.innerText = index;
+        createButton.setAttribute('id', index);
+
+        // apply active functionality
+        if (index === currentPage) {
+            createButton.classList.add("activeButton");
+            createButton.style.backgroundColor = "#4CAF50";
+            createButton.style.color = "#fff";
+        }
+
+        createButton.addEventListener('click', function () {
+            var indexNumber = this.getAttribute('id')
+            // console.log(indexNumber);
+
+
+            startPage = (indexNumber - 1) * cardPerPage;
+            endPage = startPage + cardPerPage;
+            displayUsers();
+            paginationConcept();
+        });
+
+        pagination.appendChild(createButton);
+    }
+
+    // create next button
+    var createNextButton = document.createElement('button');
+    createNextButton.innerText = "Next";
+
+    createNextButton.disabled = currentPage === totalPages;
+
+    createNextButton.addEventListener('click', function () {
+        if (currentPage < totalPages) {
+            startPage += cardPerPage;
+            endPage = startPage + cardPerPage;
+            displayUsers();
+            paginationConcept();
+        }
+    });
+
+    pagination.appendChild(createNextButton);
+}
+
 // display users function
 function displayUsers() {
-    document.getElementById('welcomeMessage').textContent = 'Welcome ' + loginUser.firstname;
+    // create a i tag
+    var createUserWelcomeElement = document.createElement('i');
+
+    // add class to i tag
+    createUserWelcomeElement.setAttribute('class', "fa-solid fa-users");
+
+    // target welcomeMessage element
+    var welcomeMessage = document.getElementById('welcomeMessage');
+
+    welcomeMessage.innerHTML = "";
+
+    welcomeMessage.appendChild(createUserWelcomeElement);
+
+    welcomeMessage.append(" Welcome " + loginUser.firstname);
 
     const userList = document.getElementById("userList");
     userList.innerHTML = "";
 
-    userDataValues.forEach(user => {
+    userDataValues.slice(startPage, endPage).forEach((user, index) => {
+
         const card = document.createElement('div');
         card.classList = "userCard";
+        card.setAttribute('id', index);
+        card.setAttribute('data', user.email);
 
 
         card.innerHTML = `
@@ -99,16 +297,19 @@ function displayUsers() {
                 <button class="editButton" data='${JSON.stringify(user)}'>
                     <i class="fa-regular fa-pen-to-square"></i> Edit Profile
                 </button>
-                <button class="deleteButton" data='${user.email}'>
+                <button class="viewButton" data='${JSON.stringify(user)}'>
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+                <button class="deleteButton" data ='${user.email}'>
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             </div>
         `;
         userList.appendChild(card);
     });
-
     enableDeleteButtons();
     enableEditButtons();
+    enableViewButtons();
 }
 
 // filter logic
@@ -123,13 +324,15 @@ function updateUI(filteredData) {
     } else {
         noData.textContent = "No matching records found";
         userDataValues = [];
+        var pagination = document.getElementById('pagination');
+        pagination.innerHTML = "";
     }
     // call displayUsers function
-    displayUsers();
+    displayUsers()
 }
 
 // searchData function
-function searchData(searchValue = "", shift = "", gender = "") {
+function searchData(searchValue = "", shift = "", gender = "", sort = "") {
 
     const userDataArray = Object.values(userData);
     const filteredData = [];
@@ -170,10 +373,54 @@ function searchData(searchValue = "", shift = "", gender = "") {
         if (matchesSearch && matchesShift && matchesGender) {
             filteredData.push(user);
         }
+        if (sort === "nameAscending") {
+            filteredData.sort((firstElement, secondElement) =>
+                firstElement.firstname.toLowerCase().localeCompare(secondElement.firstname.toLowerCase())
+            );
+        }
+        else if (sort === "nameDescending") {
+            filteredData.sort((firstElement, secondElement) =>
+                secondElement.firstname.toLowerCase().localeCompare(firstElement.firstname.toLowerCase())
+            );
+        }
+        else if (sort === "emailAscending") {
+            filteredData.sort((firstElement, secondElement) =>
+                firstElement.email.toLowerCase().localeCompare(secondElement.email.toLowerCase())
+            );
+        }
+        else if (sort === "emailDescending") {
+            filteredData.sort((firstElement, secondElement) =>
+                secondElement.email.toLowerCase().localeCompare(firstElement.email.toLowerCase())
+            );
+        }
     }
     // call update UI function
     updateUI(filteredData);
 }
+
+
+var selectedSortData = '';
+
+
+// target checkboxes
+var checkBoxes = document.querySelectorAll('input[type="checkbox"]');
+
+checkBoxes.forEach((element) => {
+    element.addEventListener('change', function () {
+
+        var finalDecision = this.value.includes("name") ? "name" : "email";
+
+        // allow two input only
+        checkBoxes.forEach((item) => {
+            if (item.value.includes(finalDecision) && item !== this) {
+                item.checked = false;
+            }
+        });
+        selectedSortData = this.checked ? this.value : "";
+        // console.log("selectedSortData:", selectedSortData);
+    });
+});
+
 
 // get all ids
 
@@ -203,9 +450,9 @@ function triggerFilter() {
     let searchValue = searchInput.value;
     let shiftValue = selectShift.value;
     let genderValue = selectGender.value;
-    clearButton.style.display = (shiftValue || genderValue) ? "inline-block" : "none";
+    clearButton.style.display = (searchValue || shiftValue || genderValue || selectedSortData) ? "inline-block" : "none";
 
-    searchData(searchValue, shiftValue, genderValue);
+    searchData(searchValue, shiftValue, genderValue, selectedSortData);
 }
 
 // add click event in search button
@@ -217,6 +464,7 @@ searchButton.addEventListener('click', function () {
 clearButton.addEventListener('click', function () {
 
     document.getElementById('noData').textContent = "";
+    toggleDropdown();
 
     searchInput.value = "";
     selectShift.value = "";
@@ -234,7 +482,8 @@ function authUser() {
     const storedUser = JSON.parse(localStorage.getItem('loginuser'));
 
     if (storedUser) {
-        displayUsers();
+        displayUsers()
+        paginationConcept()
     } else {
         window.location.href = '/signup_and_login/login/index.html';
     }
