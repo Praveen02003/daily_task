@@ -32,7 +32,7 @@ document.getElementById('addUserButton').addEventListener('click', function () {
 
 // enableDeleteButtons function
 function enableDeleteButtons() {
-    const deleteButtons = document.getElementsByClassName('deletebutton');
+    const deleteButtons = document.getElementsByClassName('deleteButton');
 
     for (const element of deleteButtons) {
         const email = element.getAttribute('data');
@@ -53,7 +53,7 @@ function enableDeleteButtons() {
 
 // enableEditButtons function
 function enableEditButtons() {
-    const editButtons = document.getElementsByClassName('editbutton');
+    const editButtons = document.getElementsByClassName('editButton');
 
     for (const element of editButtons) {
         element.addEventListener('click', function () {
@@ -70,35 +70,40 @@ function enableEditButtons() {
 
 // display users function
 function displayUsers() {
-
-    document.getElementById('welcomeMessage').textContent =
-        'Welcome ' + loginUser.firstname;
+    document.getElementById('welcomeMessage').textContent = 'Welcome ' + loginUser.firstname;
 
     const userList = document.getElementById("userList");
     userList.innerHTML = "";
 
     userDataValues.forEach(user => {
-
         const card = document.createElement('div');
         card.classList = "userCard";
 
-        card.innerHTML = `
-            <p><strong>First Name:</strong> ${user.firstname}</p>
-            <p><strong>Last Name:</strong> ${user.lastname}</p>
-            <p><strong>Mobile:</strong> ${user.mobile}</p>
-            <p><strong>Gender:</strong> ${user.gender}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
-            <p><strong>Password:</strong> ${user.password}</p>
-            <p><strong>Role:</strong> ${user.role}</p>
-            <p><strong>Shift:</strong> ${user.shift}</p>
-            <p><strong>Terms:</strong> ${user.terms}</p>
 
+        card.innerHTML = `
+            <div class="cardHeader">
+                <div class="cardHeaderText">
+                    <h3>${user.firstname}.${user.lastname}</h3>
+                    <small>${user.role}</small>
+                </div>
+            </div>
+        
+            <div class="cardBody">
+                <p><span>Email</span>   <span>${user.email}</span></p>
+                <p><span>Phone</span>   <span>${user.mobile}</span></p>
+                <p><span>Shift</span>   <span class="shiftBadge ${user.shift.toLowerCase()}">${user.shift}</span></p>
+                <p><span>Gender</span>  <span>${user.gender}</span></p>
+            </div>
+        
             <div class="actions">
-                <button class="editbutton" data='${JSON.stringify(user)}'>Edit</button>
-                <button class="deletebutton" data='${user.email}'>Delete</button>
+                <button class="editButton" data='${JSON.stringify(user)}'>
+                    <i class="fa-regular fa-pen-to-square"></i> Edit Profile
+                </button>
+                <button class="deleteButton" data='${user.email}'>
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
             </div>
         `;
-
         userList.appendChild(card);
     });
 

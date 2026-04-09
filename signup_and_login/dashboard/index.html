@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Data</title>
+    <title>User Management System</title>
     <!-- fontawesome link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- external css -->
@@ -12,58 +12,63 @@
 </head>
 
 <body>
-
+    <!-- total container -->
     <div class="container">
+        <!-- headerRow -->
+        <header class="headerRow">
+            <!-- welcomeMessage -->
+            <h2 id="welcomeMessage"></h2>
+            <!-- logoutButton -->
+            <button id="logoutButton">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </header>
 
-        <!-- title -->
-        <h2>User Data</h2>
-
-        <!-- welcome -->
-        <h2 id="welcomeMessage"></h2>
-
+        <!-- topBar -->
         <div class="topBar">
-
             <div class="left">
-                <button id="addUserButton">Add New User</button>
+                <!-- addUserButton -->
+                <button id="addUserButton">
+                    <i class="fa-solid fa-plus"></i> Add New User
+                </button>
             </div>
 
             <div class="center">
+                <div class="inputGroup">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" placeholder="Search users..." id="search">
+                </div>
 
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="search" placeholder="Search here..." id="search">
+                <!-- selectShift -->
                 <select id="selectShift">
-                    <option value="">Shift</option>
-                    <option value="AM">AM</option>
-                    <option value="PM">PM</option>
+                    <option value="">All Shifts</option>
+                    <option value="AM">AM Shift</option>
+                    <option value="PM">PM Shift</option>
                 </select>
 
+                <!-- selectGender -->
                 <select id="selectGender">
-                    <option value="">Gender</option>
+                    <option value="">All Genders</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
 
-                <button id="searchButton">Apply</button>
-                <button id="clearButton">Clear</button>
+                <!-- buttonGroup -->
+                <div class="buttonGroup">
+                    <button id="searchButton">Apply</button>
+                    <button id="clearButton">Clear</button>
+                </div>
             </div>
-
-            <div class="right">
-                <button id="logoutButton">Logout</button>
-            </div>
-
         </div>
-
-        <!-- no data -->
+        
+        <!-- noData (comes as dynamic) -->
         <h2 id="noData"></h2>
 
         <!-- cardContainer -->
         <div id="userList" class="cardContainer"></div>
-
     </div>
 
-    <!-- External js -->
     <script src="./script.js"></script>
-
 </body>
 
 </html>
