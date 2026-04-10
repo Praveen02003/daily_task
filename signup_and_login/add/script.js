@@ -2,10 +2,10 @@ var userData = JSON.parse(localStorage.getItem('userdata')) || {};
 
 // dummy data function
 function dummyData() {
-    userData['user1@gmail.com'] = {
+    userData['john.doe@gmail.com'] = {
         firstname: 'John',
         lastname: 'Doe',
-        email: 'user1@gmail.com',
+        email: 'john.doe@gmail.com',
         mobile: '+11234567801',
         shift: 'AM',
         gender: 'Male',
@@ -14,10 +14,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user2@gmail.com'] = {
+    userData['jane.smith@gmail.com'] = {
         firstname: 'Jane',
         lastname: 'Smith',
-        email: 'user2@gmail.com',
+        email: 'jane.smith@gmail.com',
         mobile: '+11234567802',
         shift: 'PM',
         gender: 'Female',
@@ -26,10 +26,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user3@gmail.com'] = {
+    userData['arun.kumar@gmail.com'] = {
         firstname: 'Arun',
         lastname: 'Kumar',
-        email: 'user3@gmail.com',
+        email: 'arun.kumar@gmail.com',
         mobile: '+11234567803',
         shift: 'AM',
         gender: 'Male',
@@ -38,10 +38,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user4@gmail.com'] = {
+    userData['priya.ravi@gmail.com'] = {
         firstname: 'Priya',
         lastname: 'Ravi',
-        email: 'user4@gmail.com',
+        email: 'priya.ravi@gmail.com',
         mobile: '+11234567804',
         shift: 'PM',
         gender: 'Female',
@@ -50,10 +50,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user5@gmail.com'] = {
+    userData['rahul.sharma@gmail.com'] = {
         firstname: 'Rahul',
         lastname: 'Sharma',
-        email: 'user5@gmail.com',
+        email: 'rahul.sharma@gmail.com',
         mobile: '+11234567805',
         shift: 'AM',
         gender: 'Male',
@@ -62,10 +62,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user6@gmail.com'] = {
+    userData['sneha.iyer@gmail.com'] = {
         firstname: 'Sneha',
         lastname: 'Iyer',
-        email: 'user6@gmail.com',
+        email: 'sneha.iyer@gmail.com',
         mobile: '+11234567806',
         shift: 'PM',
         gender: 'Female',
@@ -74,10 +74,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user7@gmail.com'] = {
+    userData['vikram.singh@gmail.com'] = {
         firstname: 'Vikram',
         lastname: 'Singh',
-        email: 'user7@gmail.com',
+        email: 'vikram.singh@gmail.com',
         mobile: '+11234567807',
         shift: 'AM',
         gender: 'Male',
@@ -86,10 +86,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user8@gmail.com'] = {
+    userData['anjali.mehta@gmail.com'] = {
         firstname: 'Anjali',
         lastname: 'Mehta',
-        email: 'user8@gmail.com',
+        email: 'anjali.mehta@gmail.com',
         mobile: '+11234567808',
         shift: 'PM',
         gender: 'Female',
@@ -98,10 +98,10 @@ function dummyData() {
         terms: true
     };
 
-    userData['user9@gmail.com'] = {
+    userData['karthik.r@gmail.com'] = {
         firstname: 'Karthik',
         lastname: 'R',
-        email: 'user9@gmail.com',
+        email: 'karthik.r@gmail.com',
         mobile: '+11234567809',
         shift: 'AM',
         gender: 'Male',
@@ -110,134 +110,14 @@ function dummyData() {
         terms: true
     };
 
-    userData['user10@gmail.com'] = {
+    userData['divya.s@gmail.com'] = {
         firstname: 'Divya',
         lastname: 'S',
-        email: 'user10@gmail.com',
+        email: 'divya.s@gmail.com',
         mobile: '+11234567810',
         shift: 'PM',
         gender: 'Female',
         role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user11@gmail.com'] = {
-        firstname: 'Ramesh',
-        lastname: 'K',
-        email: 'user11@gmail.com',
-        mobile: '+11234567811',
-        shift: 'AM',
-        gender: 'Male',
-        role: 'Manager',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user12@gmail.com'] = {
-        firstname: 'Pooja',
-        lastname: 'N',
-        email: 'user12@gmail.com',
-        mobile: '+11234567812',
-        shift: 'PM',
-        gender: 'Female',
-        role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user13@gmail.com'] = {
-        firstname: 'Suresh',
-        lastname: 'M',
-        email: 'user13@gmail.com',
-        mobile: '+11234567813',
-        shift: 'AM',
-        gender: 'Male',
-        role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user14@gmail.com'] = {
-        firstname: 'Lakshmi',
-        lastname: 'P',
-        email: 'user14@gmail.com',
-        mobile: '+11234567814',
-        shift: 'PM',
-        gender: 'Female',
-        role: 'Admin',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user15@gmail.com'] = {
-        firstname: 'Ajay',
-        lastname: 'T',
-        email: 'user15@gmail.com',
-        mobile: '+11234567815',
-        shift: 'AM',
-        gender: 'Male',
-        role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user16@gmail.com'] = {
-        firstname: 'Meena',
-        lastname: 'V',
-        email: 'user16@gmail.com',
-        mobile: '+11234567816',
-        shift: 'PM',
-        gender: 'Female',
-        role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user17@gmail.com'] = {
-        firstname: 'Ganesh',
-        lastname: 'B',
-        email: 'user17@gmail.com',
-        mobile: '+11234567817',
-        shift: 'AM',
-        gender: 'Male',
-        role: 'Manager',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user18@gmail.com'] = {
-        firstname: 'Keerthi',
-        lastname: 'L',
-        email: 'user18@gmail.com',
-        mobile: '+11234567818',
-        shift: 'PM',
-        gender: 'Female',
-        role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user19@gmail.com'] = {
-        firstname: 'Manoj',
-        lastname: 'D',
-        email: 'user19@gmail.com',
-        mobile: '+11234567819',
-        shift: 'AM',
-        gender: 'Male',
-        role: 'User',
-        password: 'pass1234',
-        terms: true
-    };
-
-    userData['user20@gmail.com'] = {
-        firstname: 'Nisha',
-        lastname: 'G',
-        email: 'user20@gmail.com',
-        mobile: '+11234567820',
-        shift: 'PM',
-        gender: 'Female',
-        role: 'Admin',
         password: 'pass1234',
         terms: true
     };

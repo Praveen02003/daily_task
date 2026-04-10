@@ -54,16 +54,23 @@ modalCloseButton.addEventListener('click', function () {
 function openModal(grandParent) {
     document.getElementById("mainModal").style.display = "flex";
     var okModalButton = document.getElementById("okModalButton");
-    okModalButton.addEventListener('click', function () {
+
+    function okConfirmation() {
         const email = grandParent.getAttribute('data');
         console.log(email);
+
         deleteUser(email);
         grandParent.remove();
         closeModal();
-        // paginationConcept();
-        // displayUsers();
 
-    })
+        okModalButton.removeEventListener('click', function () {
+            okConfirmation();
+        });
+    }
+
+    okModalButton.addEventListener('click', function () {
+        okConfirmation();
+    });
 }
 
 function closeModal() {
@@ -80,9 +87,9 @@ closeModalButton.addEventListener('click', function () {
 })
 
 
-window.onclick = function (e) {
+window.onclick = function (event) {
     let modal = document.getElementById("mainModal");
-    if (e.target === modal) {
+    if (event.target === modal) {
         modal.style.display = "none";
     }
 }
@@ -133,8 +140,8 @@ function enableDeleteButtons() {
 
         element.addEventListener('click', function () {
             var grandParent = this.parentElement.parentElement;
+            console.log(grandParent.getAttribute('id'));
             openModal(grandParent);
-            // console.log(grandParent.getAttribute('data'));
         });
 
         // disable for logged-in user
@@ -332,7 +339,7 @@ function updateUI(filteredData) {
 }
 
 // searchData function
-function searchData(searchValue = "", shift = "", gender = "", sort = "") {
+function searchData(searchValue = "", shift = "", gender = "", sortName = "", sortEmail = "") {
 
     const userDataArray = Object.values(userData);
     const filteredData = [];
@@ -373,26 +380,26 @@ function searchData(searchValue = "", shift = "", gender = "", sort = "") {
         if (matchesSearch && matchesShift && matchesGender) {
             filteredData.push(user);
         }
-        if (sort === "nameAscending") {
-            filteredData.sort((firstElement, secondElement) =>
-                firstElement.firstname.toLowerCase().localeCompare(secondElement.firstname.toLowerCase())
-            );
-        }
-        else if (sort === "nameDescending") {
-            filteredData.sort((firstElement, secondElement) =>
-                secondElement.firstname.toLowerCase().localeCompare(firstElement.firstname.toLowerCase())
-            );
-        }
-        else if (sort === "emailAscending") {
-            filteredData.sort((firstElement, secondElement) =>
-                firstElement.email.toLowerCase().localeCompare(secondElement.email.toLowerCase())
-            );
-        }
-        else if (sort === "emailDescending") {
-            filteredData.sort((firstElement, secondElement) =>
-                secondElement.email.toLowerCase().localeCompare(firstElement.email.toLowerCase())
-            );
-        }
+
+        filteredData.sort((a, b) => {
+
+            var nameResult = 0;
+            var emailResult = 0;
+
+            if (sortName) {
+                nameResult = (sortName === "nameAscending") ? a.firstname.localeCompare(b.firstname) : b.firstname.localeCompare(a.firstname);
+            }
+
+            if (sortEmail) {
+                emailResult = (sortEmail === "emailAscending") ? a.email.localeCompare(b.email) : b.email.localeCompare(a.email);
+            }
+
+            if (nameResult !== 0) {
+                return nameResult;
+            }
+
+            return emailResult;
+        });
     }
     // call update UI function
     updateUI(filteredData);
@@ -400,6 +407,8 @@ function searchData(searchValue = "", shift = "", gender = "", sort = "") {
 
 
 var selectedSortData = '';
+var selectedSortNameData = '';
+var selectedSortEmailData = '';
 
 
 // target checkboxes
@@ -415,9 +424,18 @@ checkBoxes.forEach((element) => {
             if (item.value.includes(finalDecision) && item !== this) {
                 item.checked = false;
             }
+            else if (item.value.includes(finalDecision) && item === this) {
+                if (finalDecision === "name") {
+                    selectedSortNameData = this.value;
+                }
+                else if (finalDecision === "email") {
+                    selectedSortEmailData = this.value;
+                }
+            }
         });
         selectedSortData = this.checked ? this.value : "";
-        // console.log("selectedSortData:", selectedSortData);
+        // console.log("selectedSortData:", selectedSortNameData);
+        // console.log("selectedSortData:", selectedSortEmailData);
     });
 });
 
@@ -450,9 +468,9 @@ function triggerFilter() {
     let searchValue = searchInput.value;
     let shiftValue = selectShift.value;
     let genderValue = selectGender.value;
-    clearButton.style.display = (searchValue || shiftValue || genderValue || selectedSortData) ? "inline-block" : "none";
+    clearButton.style.display = (searchValue || shiftValue || genderValue || selectedSortNameData || selectedSortEmailData) ? "inline-block" : "none";
 
-    searchData(searchValue, shiftValue, genderValue, selectedSortData);
+    searchData(searchValue, shiftValue, genderValue, selectedSortNameData, selectedSortNameData);
 }
 
 // add click event in search button
@@ -465,6 +483,13 @@ clearButton.addEventListener('click', function () {
 
     document.getElementById('noData').textContent = "";
     toggleDropdown();
+
+    // loop the checkbox to uncheck
+    checkBoxes.forEach(element => {
+        element.checked = false;
+    });
+
+    selectedSortData = "";
 
     searchInput.value = "";
     selectShift.value = "";
